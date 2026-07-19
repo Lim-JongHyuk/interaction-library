@@ -56,6 +56,9 @@ import eyeFollowButton from "./buttons-eye-follow-button";
 import fanCarousel from "./carousels-fan-carousel";
 import borderBeamButton from "./buttons-border-beam-button";
 import panoramaCarousel from "./carousels-panorama-carousel";
+import depthCarousel from "./carousels-depth-carousel";
+import glowCard from "./layout-glow-card";
+import scrollGallery from "./cms-scroll-gallery";
 
 /**
  * 명시적 배럴. content/specs/*.ts 신규 파일 추가 시 여기에 함께 등록해야
@@ -119,4 +122,7 @@ export const allSpecs: MotionSpec[] = [
   fanCarousel,
   borderBeamButton,
   panoramaCarousel,
+  depthCarousel,
+  glowCard,
+  scrollGallery,
 ];

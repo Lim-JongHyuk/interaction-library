@@ -56,6 +56,9 @@ import { EyeFollowButton } from "@/registry/buttons/eye-follow-button";
 import { FanCarousel } from "@/registry/carousels/fan-carousel";
 import { BorderBeamButton } from "@/registry/buttons/border-beam-button";
 import { PanoramaCarousel } from "@/registry/carousels/panorama-carousel";
+import { DepthCarousel } from "@/registry/carousels/depth-carousel";
+import { GlowCard } from "@/registry/layout/glow-card";
+import { ScrollGallery } from "@/registry/cms/scroll-gallery";
 
 /**
  * 명시적 배럴. registry/**.tsx 신규 컴포넌트 추가 시 여기에 함께 등록해야
@@ -120,4 +123,7 @@ export const registryComponents: Record<string, ComponentType<any>> = {
   "carousels/fan-carousel": FanCarousel,
   "buttons/border-beam-button": BorderBeamButton,
   "carousels/panorama-carousel": PanoramaCarousel,
+  "carousels/depth-carousel": DepthCarousel,
+  "layout/glow-card": GlowCard,
+  "cms/scroll-gallery": ScrollGallery,
 };
