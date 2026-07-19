@@ -64,6 +64,8 @@ import { MorphNavbar } from "@/registry/navigation/morph-navbar";
 import { StickyStack } from "@/registry/sections/sticky-stack";
 import { VelocityMarquee } from "@/registry/typography/velocity-marquee";
 import { SpiralSlider } from "@/registry/carousels/spiral-slider";
+import { ImageTrail } from "@/registry/interaction/image-trail";
+import { Constellation } from "@/registry/backgrounds/constellation";
 
 /**
  * 명시적 배럴. registry/**.tsx 신규 컴포넌트 추가 시 여기에 함께 등록해야
@@ -136,4 +138,6 @@ export const registryComponents: Record<string, ComponentType<any>> = {
   "sections/sticky-stack": StickyStack,
   "typography/velocity-marquee": VelocityMarquee,
   "carousels/spiral-slider": SpiralSlider,
+  "interaction/image-trail": ImageTrail,
+  "backgrounds/constellation": Constellation,
 };

@@ -64,6 +64,8 @@ import morphNavbar from "./navigation-morph-navbar";
 import stickyStack from "./sections-sticky-stack";
 import velocityMarquee from "./text-velocity-marquee";
 import spiralSlider from "./carousels-spiral-slider";
+import imageTrail from "./interaction-image-trail";
+import constellation from "./backgrounds-constellation";
 
 /**
  * 명시적 배럴. content/specs/*.ts 신규 파일 추가 시 여기에 함께 등록해야
@@ -135,4 +137,6 @@ export const allSpecs: MotionSpec[] = [
   stickyStack,
   velocityMarquee,
   spiralSlider,
+  imageTrail,
+  constellation,
 ];
