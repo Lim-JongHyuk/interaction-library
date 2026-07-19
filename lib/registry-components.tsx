@@ -51,6 +51,9 @@ import { ConfidentialFolder } from "@/registry/interaction/confidential-folder";
 import { FocusSliceCarousel } from "@/registry/carousels/focus-slice";
 import { GalleryStack } from "@/registry/carousels/gallery-stack";
 import { ProgressiveBlur } from "@/registry/utilities/progressive-blur";
+import { EditorialTicker } from "@/registry/cms/editorial-ticker";
+import { EyeFollowButton } from "@/registry/buttons/eye-follow-button";
+import { FanCarousel } from "@/registry/carousels/fan-carousel";
 
 /**
  * 명시적 배럴. registry/**.tsx 신규 컴포넌트 추가 시 여기에 함께 등록해야
@@ -110,4 +113,7 @@ export const registryComponents: Record<string, ComponentType<any>> = {
   "carousels/focus-slice": FocusSliceCarousel,
   "carousels/gallery-stack": GalleryStack,
   "utilities/progressive-blur": ProgressiveBlur,
+  "cms/editorial-ticker": EditorialTicker,
+  "buttons/eye-follow-button": EyeFollowButton,
+  "carousels/fan-carousel": FanCarousel,
 };

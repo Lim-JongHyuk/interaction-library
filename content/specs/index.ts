@@ -51,6 +51,9 @@ import confidentialFolder from "./interaction-confidential-folder";
 import focusSlice from "./carousels-focus-slice";
 import galleryStack from "./carousels-gallery-stack";
 import progressiveBlur from "./utilities-progressive-blur";
+import editorialTicker from "./cms-editorial-ticker";
+import eyeFollowButton from "./buttons-eye-follow-button";
+import fanCarousel from "./carousels-fan-carousel";
 
 /**
  * 명시적 배럴. content/specs/*.ts 신규 파일 추가 시 여기에 함께 등록해야
@@ -109,4 +112,7 @@ export const allSpecs: MotionSpec[] = [
   focusSlice,
   galleryStack,
   progressiveBlur,
+  editorialTicker,
+  eyeFollowButton,
+  fanCarousel,
 ];
