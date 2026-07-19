@@ -47,6 +47,10 @@ import { ScrollShowcase } from "@/registry/sections/scroll-showcase";
 import { CompareSlider } from "@/registry/utilities/compare-slider";
 import { ScrollReveal } from "@/registry/typography/scroll-reveal";
 import { LogoMarquee } from "@/registry/cms/logo-marquee";
+import { ConfidentialFolder } from "@/registry/interaction/confidential-folder";
+import { FocusSliceCarousel } from "@/registry/carousels/focus-slice";
+import { GalleryStack } from "@/registry/carousels/gallery-stack";
+import { ProgressiveBlur } from "@/registry/utilities/progressive-blur";
 
 /**
  * 명시적 배럴. registry/**.tsx 신규 컴포넌트 추가 시 여기에 함께 등록해야
@@ -102,4 +106,8 @@ export const registryComponents: Record<string, ComponentType<any>> = {
   "utilities/compare-slider": CompareSlider,
   "typography/scroll-reveal": ScrollReveal,
   "cms/logo-marquee": LogoMarquee,
+  "interaction/confidential-folder": ConfidentialFolder,
+  "carousels/focus-slice": FocusSliceCarousel,
+  "carousels/gallery-stack": GalleryStack,
+  "utilities/progressive-blur": ProgressiveBlur,
 };

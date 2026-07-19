@@ -47,6 +47,10 @@ import scrollShowcase from "./sections-scroll-showcase";
 import compareSlider from "./utilities-compare-slider";
 import scrollReveal from "./text-scroll-reveal";
 import logoMarquee from "./cms-logo-marquee";
+import confidentialFolder from "./interaction-confidential-folder";
+import focusSlice from "./carousels-focus-slice";
+import galleryStack from "./carousels-gallery-stack";
+import progressiveBlur from "./utilities-progressive-blur";
 
 /**
  * 명시적 배럴. content/specs/*.ts 신규 파일 추가 시 여기에 함께 등록해야
@@ -101,4 +105,8 @@ export const allSpecs: MotionSpec[] = [
   compareSlider,
   scrollReveal,
   logoMarquee,
+  confidentialFolder,
+  focusSlice,
+  galleryStack,
+  progressiveBlur,
 ];
