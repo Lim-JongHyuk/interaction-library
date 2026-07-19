@@ -349,30 +349,27 @@ export function FluidSimulation({
       return [((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255];
     }
 
-    function hsvToRgb(h: number): [number, number, number] {
-      const i = Math.floor(h * 6);
-      const f = h * 6 - i;
-      const q = 1 - f;
-      switch (i % 6) {
-        case 0: return [1, f, 0];
-        case 1: return [q, 1, 0];
-        case 2: return [0, 1, f];
-        case 3: return [0, q, 1];
-        case 4: return [f, 0, 1];
-        default: return [1, 0, q];
-      }
-    }
-
-    let hue = Math.random();
+    // 가산 블렌딩에서 섞여도 탁해지지 않는 큐레이션 팔레트 (인디고→시안→마젠타 계열)
+    const PALETTE: [number, number, number][] = [
+      [0.39, 0.4, 0.95], // indigo
+      [0.66, 0.33, 0.97], // violet
+      [0.93, 0.28, 0.6], // pink
+      [0.13, 0.83, 0.93], // cyan
+      [0.23, 0.51, 0.96], // blue
+      [0.85, 0.27, 0.94], // fuchsia
+    ];
+    let paletteIndex = Math.floor(Math.random() * PALETTE.length);
     function inkColor(): [number, number, number] {
       const p = paramsRef.current;
       if (!p.colorful) {
         const [r, g, b] = hexToRgb(p.color);
         return [r * 0.35, g * 0.35, b * 0.35];
       }
-      hue = (hue + 0.13) % 1;
-      const [r, g, b] = hsvToRgb(hue);
-      return [r * 0.3, g * 0.3, b * 0.3];
+      paletteIndex = (paletteIndex + 1) % PALETTE.length;
+      const [r, g, b] = PALETTE[paletteIndex];
+      // 미세한 밝기 지터로 단조로움 방지
+      const j = 0.85 + Math.random() * 0.3;
+      return [r * 0.32 * j, g * 0.32 * j, b * 0.32 * j];
     }
 
     function splat(x: number, y: number, dx: number, dy: number, col: [number, number, number]) {

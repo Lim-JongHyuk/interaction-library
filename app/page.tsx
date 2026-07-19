@@ -5,6 +5,8 @@ import { siteConfig } from "@/lib/site-config";
 import { ComponentCard } from "@/components/site/component-card";
 import { ShuffleText } from "@/registry/typography/shuffle";
 import { AuroraMesh } from "@/registry/backgrounds/aurora-mesh";
+import { BorderBeamButton } from "@/registry/buttons/border-beam-button";
+import { LogoMarquee } from "@/registry/cms/logo-marquee";
 
 const FEATURED = [
   "typography/shuffle",
@@ -23,38 +25,59 @@ export default function Home() {
 
   return (
     <div className="flex flex-col gap-20 pb-20">
-      <section className="relative flex min-h-[420px] items-center overflow-hidden border-b border-border">
-        <div className="absolute inset-0 opacity-70">
+      <section className="relative flex min-h-[520px] items-center overflow-hidden border-b border-border">
+        {/* 배경: 오로라 + 가독성용 오버레이 */}
+        <div className="absolute inset-0 opacity-60">
           <AuroraMesh speed={20} intensity={0.4} />
         </div>
-        <div className="relative mx-auto flex max-w-2xl flex-col items-start gap-5 px-6 py-24">
-          <span className="rounded-full border border-border bg-background/60 px-3 py-1 text-xs font-medium text-muted-foreground backdrop-blur">
-            {specs.length} components · {CATEGORIES.length} categories
-          </span>
-          <h1 className="text-5xl font-semibold tracking-tight sm:text-6xl">
-            <ShuffleText text="Motion, defined." />
-          </h1>
-          <p className="max-w-md text-base text-muted-foreground">
-            움직임(motion)을 정의하고, 미리보고, 바로 가져다 쓰는 오픈 컴포넌트 갤러리.
-          </p>
-          <div className="flex gap-3">
-            <Link
-              href="/components"
-              className="mk-border-beam rounded-lg border border-border bg-background/80 px-5 py-2.5 text-sm font-semibold backdrop-blur transition-colors hover:bg-muted"
-            >
-              Browse components
-            </Link>
-            {siteConfig.github && (
-              <a
-                href={siteConfig.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-lg border border-border bg-background/60 px-5 py-2.5 text-sm font-semibold backdrop-blur hover:bg-muted"
-              >
-                GitHub ★
-              </a>
-            )}
+        <div
+          className="absolute inset-0 bg-gradient-to-r from-background via-background/75 to-background/20"
+          aria-hidden="true"
+        />
+        <div
+          className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background to-transparent"
+          aria-hidden="true"
+        />
+
+        <div className="relative mx-auto w-full max-w-6xl px-6 py-24">
+          <div className="flex max-w-xl flex-col items-start gap-6">
+            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background/70 px-3.5 py-1.5 text-xs font-medium text-muted-foreground backdrop-blur">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
+              {specs.length} components · {CATEGORIES.length} categories · MIT
+            </span>
+            <h1 className="text-5xl font-semibold leading-[1.05] tracking-tight sm:text-7xl">
+              <ShuffleText text="Motion," />
+              <br />
+              <span className="bg-gradient-to-r from-foreground via-foreground to-foreground/40 bg-clip-text text-transparent">
+                defined.
+              </span>
+            </h1>
+            <p className="max-w-md text-base leading-relaxed text-foreground/70">
+              스펙으로 정의된 모션을 라이브로 미리보고, 파라미터를 튜닝한 뒤,
+              <br className="hidden sm:block" />
+              복사 한 번 또는 CLI 한 줄로 프로젝트에 넣는다.
+            </p>
+            <div className="flex flex-wrap items-center gap-3">
+              <BorderBeamButton href="/components" colorFrom="#f97316" colorTo="#e11d48" duration={4}>
+                Browse components
+              </BorderBeamButton>
+              {siteConfig.github && (
+                <a
+                  href={siteConfig.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-border bg-background/60 px-6 py-3 text-sm font-semibold backdrop-blur transition-colors hover:bg-muted"
+                >
+                  GitHub ★
+                </a>
+              )}
+            </div>
           </div>
+        </div>
+
+        {/* 하단: 데모 워드마크 마퀴 */}
+        <div className="absolute inset-x-0 bottom-5 opacity-50">
+          <LogoMarquee speed={40} gap={64} />
         </div>
       </section>
 

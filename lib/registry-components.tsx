@@ -54,6 +54,8 @@ import { ProgressiveBlur } from "@/registry/utilities/progressive-blur";
 import { EditorialTicker } from "@/registry/cms/editorial-ticker";
 import { EyeFollowButton } from "@/registry/buttons/eye-follow-button";
 import { FanCarousel } from "@/registry/carousels/fan-carousel";
+import { BorderBeamButton } from "@/registry/buttons/border-beam-button";
+import { PanoramaCarousel } from "@/registry/carousels/panorama-carousel";
 
 /**
  * 명시적 배럴. registry/**.tsx 신규 컴포넌트 추가 시 여기에 함께 등록해야
@@ -116,4 +118,6 @@ export const registryComponents: Record<string, ComponentType<any>> = {
   "cms/editorial-ticker": EditorialTicker,
   "buttons/eye-follow-button": EyeFollowButton,
   "carousels/fan-carousel": FanCarousel,
+  "buttons/border-beam-button": BorderBeamButton,
+  "carousels/panorama-carousel": PanoramaCarousel,
 };

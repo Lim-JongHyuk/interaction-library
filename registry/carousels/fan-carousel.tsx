@@ -90,25 +90,37 @@ export function FanCarousel({
       >
         {items.map((card, i) => {
           const delta = i - shift;
+          const dist = Math.abs(delta);
           const angle = delta * spread;
-          const isActive = Math.abs(delta) < 0.5;
+          // 중앙 근접도(0~1)를 연속값으로 써서 드래그 중에도 부드럽게 전환
+          const focus = Math.max(0, 1 - dist);
+          const isActive = dist < 0.5;
           return (
             <motion.div
               key={i}
               animate={{
                 rotate: angle,
-                y: isActive ? -lift : 0,
-                scale: isActive ? 1.04 : 1,
+                y: -lift * focus,
+                scale: 1 + 0.06 * focus,
+                filter: `brightness(${1 - Math.min(dist * 0.13, 0.4)})`,
+                opacity: dist > 3.5 ? 0 : 1,
               }}
               transition={spring}
               className="pointer-events-none absolute left-1/2 top-8 h-52 w-36 -ml-18"
               style={{
                 transformOrigin: `50% ${radius}px`,
-                zIndex: 10 - Math.round(Math.abs(delta)),
+                zIndex: 100 - Math.round(dist * 10),
               }}
               aria-hidden={!isActive}
             >
-              <div className="h-full w-full overflow-hidden rounded-xl shadow-xl ring-1 ring-black/10">
+              <div
+                className="h-full w-full overflow-hidden rounded-xl ring-1 ring-black/10 transition-shadow duration-300"
+                style={{
+                  boxShadow: isActive
+                    ? "0 24px 48px -12px rgba(0,0,0,0.5)"
+                    : "0 12px 24px -8px rgba(0,0,0,0.35)",
+                }}
+              >
                 {card.image ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={card.image} alt="" draggable={false} className="h-full w-full object-cover" />
