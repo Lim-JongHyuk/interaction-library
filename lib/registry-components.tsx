@@ -61,6 +61,9 @@ import { GlowCard } from "@/registry/layout/glow-card";
 import { ScrollGallery } from "@/registry/cms/scroll-gallery";
 import { TaskRunnerCard } from "@/registry/interaction/task-runner";
 import { MorphNavbar } from "@/registry/navigation/morph-navbar";
+import { StickyStack } from "@/registry/sections/sticky-stack";
+import { VelocityMarquee } from "@/registry/typography/velocity-marquee";
+import { SpiralSlider } from "@/registry/carousels/spiral-slider";
 
 /**
  * 명시적 배럴. registry/**.tsx 신규 컴포넌트 추가 시 여기에 함께 등록해야
@@ -130,4 +133,7 @@ export const registryComponents: Record<string, ComponentType<any>> = {
   "cms/scroll-gallery": ScrollGallery,
   "interaction/task-runner": TaskRunnerCard,
   "navigation/morph-navbar": MorphNavbar,
+  "sections/sticky-stack": StickyStack,
+  "typography/velocity-marquee": VelocityMarquee,
+  "carousels/spiral-slider": SpiralSlider,
 };
