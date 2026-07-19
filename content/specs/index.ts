@@ -59,6 +59,8 @@ import panoramaCarousel from "./carousels-panorama-carousel";
 import depthCarousel from "./carousels-depth-carousel";
 import glowCard from "./layout-glow-card";
 import scrollGallery from "./cms-scroll-gallery";
+import taskRunner from "./interaction-task-runner";
+import morphNavbar from "./navigation-morph-navbar";
 
 /**
  * 명시적 배럴. content/specs/*.ts 신규 파일 추가 시 여기에 함께 등록해야
@@ -125,4 +127,6 @@ export const allSpecs: MotionSpec[] = [
   depthCarousel,
   glowCard,
   scrollGallery,
+  taskRunner,
+  morphNavbar,
 ];

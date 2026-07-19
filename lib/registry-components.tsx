@@ -59,6 +59,8 @@ import { PanoramaCarousel } from "@/registry/carousels/panorama-carousel";
 import { DepthCarousel } from "@/registry/carousels/depth-carousel";
 import { GlowCard } from "@/registry/layout/glow-card";
 import { ScrollGallery } from "@/registry/cms/scroll-gallery";
+import { TaskRunnerCard } from "@/registry/interaction/task-runner";
+import { MorphNavbar } from "@/registry/navigation/morph-navbar";
 
 /**
  * 명시적 배럴. registry/**.tsx 신규 컴포넌트 추가 시 여기에 함께 등록해야
@@ -126,4 +128,6 @@ export const registryComponents: Record<string, ComponentType<any>> = {
   "carousels/depth-carousel": DepthCarousel,
   "layout/glow-card": GlowCard,
   "cms/scroll-gallery": ScrollGallery,
+  "interaction/task-runner": TaskRunnerCard,
+  "navigation/morph-navbar": MorphNavbar,
 };
