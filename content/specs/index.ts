@@ -41,6 +41,12 @@ import kineticLines from "./backgrounds-kinetic-lines";
 import shatterLogo from "./interaction-shatter-logo";
 import thermalHeatmap from "./data-thermal-heatmap";
 import particleEngine from "./backgrounds-particle-engine";
+import fluidSimulation from "./backgrounds-fluid-simulation";
+import particleMorph from "./text-particle-morph";
+import scrollShowcase from "./sections-scroll-showcase";
+import compareSlider from "./utilities-compare-slider";
+import scrollReveal from "./text-scroll-reveal";
+import logoMarquee from "./cms-logo-marquee";
 
 /**
  * 명시적 배럴. content/specs/*.ts 신규 파일 추가 시 여기에 함께 등록해야
@@ -89,4 +95,10 @@ export const allSpecs: MotionSpec[] = [
   shatterLogo,
   thermalHeatmap,
   particleEngine,
+  fluidSimulation,
+  particleMorph,
+  scrollShowcase,
+  compareSlider,
+  scrollReveal,
+  logoMarquee,
 ];
