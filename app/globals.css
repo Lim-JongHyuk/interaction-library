@@ -1,0 +1,130 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #17171a;
+  --muted: #f4f4f5;
+  --muted-foreground: #6b6b72;
+  --border: #e4e4e7;
+  --card: #ffffff;
+  --accent: #4f46e5;
+  --accent-foreground: #ffffff;
+}
+
+:root[data-theme="dark"],
+.dark {
+  --background: #0a0a0b;
+  --foreground: #f2f2f3;
+  --muted: #17171a;
+  --muted-foreground: #9a9aa2;
+  --border: #26262b;
+  --card: #111113;
+  --accent: #818cf8;
+  --accent-foreground: #0a0a0b;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-card: var(--card);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+* {
+  border-color: var(--border);
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+  border: 2px solid var(--background);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Border beam — 밝은 빔이 테두리를 따라 도는 효과 (beam.jakubantalik.com 스타일) */
+@property --mk-beam-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.mk-border-beam {
+  position: relative;
+  isolation: isolate;
+}
+
+.mk-border-beam::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--mk-beam-angle),
+    transparent 0deg 300deg,
+    color-mix(in srgb, var(--accent) 60%, transparent) 330deg,
+    #ffffff 352deg,
+    var(--accent) 358deg,
+    transparent 360deg
+  );
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  animation: mk-beam-spin 3.5s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes mk-beam-spin {
+  to {
+    --mk-beam-angle: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mk-border-beam::before {
+    animation: none;
+  }
+}
+
+.shiki,
+.shiki span {
+  color: var(--shiki-light);
+  background-color: var(--shiki-light-bg) !important;
+}
+
+.dark .shiki,
+.dark .shiki span {
+  color: var(--shiki-dark);
+  background-color: var(--shiki-dark-bg) !important;
+}
