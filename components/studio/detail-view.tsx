@@ -61,7 +61,13 @@ export function DetailView({
             )}
           >
             {Preview ? (
-              <Preview key={replayKey} {...spec.demo} {...values} />
+              spec.category === "backgrounds" ? (
+                <div className="h-72 w-full">
+                  <Preview key={replayKey} {...spec.demo} {...values} />
+                </div>
+              ) : (
+                <Preview key={replayKey} {...spec.demo} {...values} />
+              )
             ) : (
               <span className="text-sm text-muted-foreground">프리뷰 컴포넌트 준비 중.</span>
             )}
@@ -89,7 +95,17 @@ export function DetailView({
         </div>
 
         <div className="rounded-lg border border-border p-4">
-          <h2 className="mb-3 text-sm font-semibold">Param Studio</h2>
+          <div className="mb-3 flex items-center justify-between">
+            <h2 className="text-sm font-semibold">Param Studio</h2>
+            <button
+              type="button"
+              onClick={() => setValues(defaultParamValues(spec))}
+              disabled={JSON.stringify(values) === JSON.stringify(defaultParamValues(spec))}
+              className="rounded-md border border-border px-2 py-1 text-xs text-muted-foreground hover:bg-muted disabled:opacity-40 disabled:hover:bg-transparent"
+            >
+              ↺ Reset
+            </button>
+          </div>
           <ParamControls
             params={spec.params}
             values={values}

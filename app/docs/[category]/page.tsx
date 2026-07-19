@@ -7,6 +7,20 @@ export function generateStaticParams() {
   return CATEGORIES.map((c) => ({ category: c.slug }));
 }
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ category: string }>;
+}) {
+  const { category } = await params;
+  const meta = CATEGORIES.find((c) => c.slug === category);
+  if (!meta) return {};
+  return {
+    title: meta.label,
+    description: `${meta.label} 카테고리의 모션 컴포넌트 모음.`,
+  };
+}
+
 export default async function CategoryIndexPage({
   params,
 }: {

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { Header } from "@/components/site/header";
 import { SidebarNav } from "@/components/site/sidebar-nav";
+import { siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/cn";
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
@@ -57,14 +58,20 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
       </div>
 
       <footer className="border-t border-border px-4 py-6 text-sm text-muted-foreground">
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+          <span className="font-medium text-foreground/80">MotionKit</span>
           <span>MIT License</span>
-          <a href="/contributing" className="hover:text-foreground">
-            Contributing
-          </a>
-          <a href="/changelog" className="hover:text-foreground">
-            Changelog
-          </a>
+          <span className="hidden sm:inline">Built with Next.js · motion · Tailwind CSS</span>
+          {siteConfig.github && (
+            <a
+              href={siteConfig.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-foreground"
+            >
+              GitHub
+            </a>
+          )}
         </div>
       </footer>
     </div>

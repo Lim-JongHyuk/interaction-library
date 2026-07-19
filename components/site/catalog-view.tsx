@@ -30,12 +30,24 @@ export function CatalogView({ specs }: { specs: MotionSpec[] }) {
   const category = searchParams.get("category") ?? "all";
   const tag = searchParams.get("tag") ?? "";
   const [query, setQuery] = useState("");
+  const [tagsExpanded, setTagsExpanded] = useState(false);
 
   const allTags = useMemo(() => {
-    const set = new Set<string>();
-    specs.forEach((s) => s.tags.forEach((t) => set.add(t)));
-    return Array.from(set).sort();
+    const counts = new Map<string, number>();
+    specs.forEach((s) => s.tags.forEach((t) => counts.set(t, (counts.get(t) ?? 0) + 1)));
+    // 빈도순 → 동률이면 알파벳순. 접힌 상태에서는 상위 태그만 노출한다.
+    return Array.from(counts.entries())
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+      .map(([t]) => t);
   }, [specs]);
+
+  const TOP_TAG_COUNT = 14;
+  const visibleTags = useMemo(() => {
+    if (tagsExpanded) return allTags;
+    const top = allTags.slice(0, TOP_TAG_COUNT);
+    if (tag && !top.includes(tag)) top.push(tag);
+    return top;
+  }, [allTags, tagsExpanded, tag]);
 
   const fuse = useMemo(
     () =>
@@ -103,7 +115,7 @@ export function CatalogView({ specs }: { specs: MotionSpec[] }) {
           >
             All tags
           </button>
-          {allTags.map((t) => (
+          {visibleTags.map((t) => (
             <button
               key={t}
               type="button"
@@ -116,6 +128,15 @@ export function CatalogView({ specs }: { specs: MotionSpec[] }) {
               #{t}
             </button>
           ))}
+          {allTags.length > TOP_TAG_COUNT && (
+            <button
+              type="button"
+              onClick={() => setTagsExpanded((v) => !v)}
+              className="rounded-full px-2.5 py-1 text-xs text-muted-foreground underline-offset-2 hover:text-foreground hover:underline"
+            >
+              {tagsExpanded ? "접기" : `+${allTags.length - visibleTags.length} more`}
+            </button>
+          )}
         </div>
       </div>
 

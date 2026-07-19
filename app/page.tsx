@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CATEGORIES } from "@/lib/categories";
 import { loadSpecs } from "@/lib/load-specs";
+import { siteConfig } from "@/lib/site-config";
 import { ComponentCard } from "@/components/site/component-card";
 import { ShuffleText } from "@/registry/typography/shuffle";
 import { AuroraMesh } from "@/registry/backgrounds/aurora-mesh";
@@ -43,14 +44,16 @@ export default function Home() {
             >
               Browse components
             </Link>
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-lg border border-border bg-background/60 px-5 py-2.5 text-sm font-semibold backdrop-blur hover:bg-muted"
-            >
-              GitHub ★
-            </a>
+            {siteConfig.github && (
+              <a
+                href={siteConfig.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-lg border border-border bg-background/60 px-5 py-2.5 text-sm font-semibold backdrop-blur hover:bg-muted"
+              >
+                GitHub ★
+              </a>
+            )}
           </div>
         </div>
       </section>
@@ -76,12 +79,50 @@ export default function Home() {
         </section>
 
         <section className="flex flex-col gap-4">
-          <h2 className="text-sm font-semibold text-muted-foreground">New &amp; Popular</h2>
+          <div className="flex items-baseline justify-between">
+            <h2 className="text-sm font-semibold text-muted-foreground">New &amp; Popular</h2>
+            <Link href="/components" className="text-xs text-muted-foreground hover:text-foreground">
+              전체 보기 →
+            </Link>
+          </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {featured.map((spec) => (
               <ComponentCard key={`${spec.category}/${spec.slug}`} spec={spec} />
             ))}
           </div>
+        </section>
+
+        <section className="flex flex-col gap-4">
+          <h2 className="text-sm font-semibold text-muted-foreground">How it works</h2>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+            {[
+              {
+                step: "01",
+                title: "Browse & preview",
+                body: "모든 컴포넌트는 라이브로 움직이는 상태에서 고른다. 정지된 스크린샷이 아니라 실제 모션을 본다.",
+              },
+              {
+                step: "02",
+                title: "Tune in the studio",
+                body: "duration·stagger·easing 같은 파라미터를 슬라이더로 조정하면 사용 코드가 그 값 그대로 갱신된다.",
+              },
+              {
+                step: "03",
+                title: "Copy or install",
+                body: "소스를 복사하거나 shadcn CLI 한 줄로 설치한다. 의존성은 motion 하나뿐.",
+              },
+            ].map((f) => (
+              <div key={f.step} className="flex flex-col gap-2 rounded-xl border border-border p-5">
+                <span className="text-xs font-mono text-accent">{f.step}</span>
+                <h3 className="text-sm font-semibold">{f.title}</h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">{f.body}</p>
+              </div>
+            ))}
+          </div>
+          <pre className="overflow-x-auto rounded-xl border border-border bg-muted px-5 py-4 font-mono text-sm text-muted-foreground">
+            <span className="select-none text-accent">$ </span>
+            pnpm dlx shadcn@latest add {siteConfig.url}/r/typography/shuffle.json
+          </pre>
         </section>
       </div>
     </div>

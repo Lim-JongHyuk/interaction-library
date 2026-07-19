@@ -20,7 +20,7 @@ export async function generateMetadata({
   if (!spec) return {};
 
   return {
-    title: `${spec.name} — MotionKit`,
+    title: spec.name,
     description: spec.description,
     openGraph: { title: spec.name, description: spec.description },
   };

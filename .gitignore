@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# 통합 전 원본 보관 폴더 (registry/로 이관 완료)
+/추가할 것/

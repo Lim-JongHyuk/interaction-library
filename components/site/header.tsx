@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ThemeToggle } from "@/components/site/theme-toggle";
 import { SearchTrigger } from "@/components/site/search-modal";
+import { siteConfig } from "@/lib/site-config";
 
 export function Header({ onMenuClick }: { onMenuClick: () => void }) {
   return (
@@ -26,15 +27,17 @@ export function Header({ onMenuClick }: { onMenuClick: () => void }) {
       </div>
 
       <div className="ml-auto flex items-center gap-2">
-        <a
-          href="https://github.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="GitHub"
-          className="inline-flex h-8 w-8 items-center justify-center rounded-md text-foreground/80 hover:bg-muted"
-        >
-          <GitHubIcon className="h-4 w-4" />
-        </a>
+        {siteConfig.github && (
+          <a
+            href={siteConfig.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-md text-foreground/80 hover:bg-muted"
+          >
+            <GitHubIcon className="h-4 w-4" />
+          </a>
+        )}
         <ThemeToggle />
       </div>
     </header>

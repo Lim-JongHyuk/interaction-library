@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { MotionSpec } from "@/lib/spec";
 import { defaultParamValues } from "@/lib/codegen";
 import { registryComponents } from "@/lib/registry-components";
+import { LazyPreview } from "@/components/site/lazy-preview";
 
 export function ComponentCard({ spec }: { spec: MotionSpec }) {
   const Preview = registryComponents[`${spec.category}/${spec.slug}`];
@@ -17,16 +18,19 @@ export function ComponentCard({ spec }: { spec: MotionSpec }) {
       style={{ contentVisibility: "auto", containIntrinsicSize: "auto 240px" }}
       className="group flex flex-col gap-3 rounded-xl border border-border bg-card p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-[0_8px_30px_-12px_var(--accent)]"
     >
-      {/* 고정 높이 프리뷰 캔버스 — 항상 디폴트 상태로 라이브 렌더, 넘치면 클립.
+      {/* 고정 높이 프리뷰 캔버스 — 뷰포트 근처에서만 라이브 마운트(LazyPreview), 넘치면 클립.
           카드 전체가 링크이므로 프리뷰 내부 버튼이 클릭을 가로채지 않도록 pointer-events 차단 */}
       <div className="pointer-events-none relative h-36 overflow-hidden rounded-lg bg-muted">
-        <div className="absolute inset-0 flex items-center justify-center p-3 [&>*]:max-h-full [&>*]:max-w-full">
+        <LazyPreview
+          className="absolute inset-0 flex items-center justify-center p-3 [&>*]:max-h-full [&>*]:max-w-full"
+          poster={<span className="text-sm text-muted-foreground">{posterText}</span>}
+        >
           {Preview ? (
             <Preview {...spec.demo} {...defaultParamValues(spec)} />
           ) : (
             <span className="text-sm text-muted-foreground">{posterText}</span>
           )}
-        </div>
+        </LazyPreview>
       </div>
       <div className="flex flex-col gap-1.5">
         <span className="text-sm font-medium tracking-tight">{spec.name}</span>

@@ -41,6 +41,12 @@ import { KineticLines } from "@/registry/backgrounds/kinetic-lines";
 import { ShatterLogo } from "@/registry/interaction/shatter-logo";
 import { ThermalHeatmap } from "@/registry/data/thermal-heatmap";
 import { ParticleEngine } from "@/registry/backgrounds/particle-engine";
+import { FluidSimulation } from "@/registry/backgrounds/fluid-simulation";
+import { ParticleMorph } from "@/registry/typography/particle-morph";
+import { ScrollShowcase } from "@/registry/sections/scroll-showcase";
+import { CompareSlider } from "@/registry/utilities/compare-slider";
+import { ScrollReveal } from "@/registry/typography/scroll-reveal";
+import { LogoMarquee } from "@/registry/cms/logo-marquee";
 
 /**
  * 명시적 배럴. registry/**.tsx 신규 컴포넌트 추가 시 여기에 함께 등록해야
@@ -90,4 +96,10 @@ export const registryComponents: Record<string, ComponentType<any>> = {
   "interaction/shatter-logo": ShatterLogo,
   "data/thermal-heatmap": ThermalHeatmap,
   "backgrounds/particle-engine": ParticleEngine,
+  "backgrounds/fluid-simulation": FluidSimulation,
+  "typography/particle-morph": ParticleMorph,
+  "sections/scroll-showcase": ScrollShowcase,
+  "utilities/compare-slider": CompareSlider,
+  "typography/scroll-reveal": ScrollReveal,
+  "cms/logo-marquee": LogoMarquee,
 };
