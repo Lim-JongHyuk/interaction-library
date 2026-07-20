@@ -95,7 +95,7 @@ export function SpiralSlider({
 
   return (
     <div
-      className="relative h-80 w-full cursor-grab touch-none select-none overflow-hidden rounded-2xl bg-zinc-950 active:cursor-grabbing"
+      className="relative h-80 w-full cursor-grab touch-none select-none overflow-hidden rounded-2xl bg-zinc-950 outline-none focus-visible:ring-2 focus-visible:ring-accent active:cursor-grabbing"
       style={{ perspective: 1100, perspectiveOrigin: "50% 38%" }}
       onPointerDown={(e) => {
         (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
@@ -121,8 +121,22 @@ export function SpiralSlider({
       onPointerCancel={() => {
         sim.current.dragging = false;
       }}
+      // 방향키로 한 카드씩 이동 — 드래그가 불가능한 사용자를 위한 대체 조작.
+      onKeyDown={(e) => {
+        if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+        e.preventDefault();
+        const s = sim.current;
+        s.velocity = 0;
+        const dir = e.key === "ArrowRight" ? 1 : -1;
+        s.active = Math.min(items.length - 1, Math.max(0, Math.round(s.active) + dir));
+        const ring = ringRef.current;
+        const p = paramsRef.current;
+        if (ring)
+          ring.style.transform = `translateY(${s.active * p.rise}px) rotateY(${-s.active * p.step}deg)`;
+      }}
       role="group"
       aria-label="스파이럴 3D 슬라이더"
+      tabIndex={0}
     >
       {/* 깊이감용 비네트 */}
       <div

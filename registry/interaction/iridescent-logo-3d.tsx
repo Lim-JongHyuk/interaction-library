@@ -203,15 +203,27 @@ export function IridescentLogo3D({
   const clockRef = useRef<THREE.Clock | null>(null);
   const frameIdRef = useRef<number | null>(null);
   const dragStateRef = useRef({ isDragging: false, lastX: 0, lastY: 0, velocityX: 0, velocityY: 0, phase: 0 });
-  const paramsRef = useRef({ autoRotate, autoRotateSpeed, enableDrag });
+  const paramsRef = useRef({ autoRotate, autoRotateSpeed, enableDrag, rotateMultiplier: PRESETS[preset].rotateMultiplier });
+  const reducedMotionRef = useRef(false);
 
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
   // 렌더 루프가 최신 파라미터를 참조하도록 effect에서 ref를 갱신 (렌더 중 ref 쓰기 금지 룰 준수)
   useEffect(() => {
-    paramsRef.current = { autoRotate, autoRotateSpeed, enableDrag };
-  }, [autoRotate, autoRotateSpeed, enableDrag]);
+    // 무거운 금속 프리셋은 느리게, 가벼운 유리 프리셋은 빠르게 — 재질감에 맞춘 회전 속도 배율.
+    paramsRef.current = { autoRotate, autoRotateSpeed, enableDrag, rotateMultiplier: PRESETS[preset].rotateMultiplier };
+  }, [autoRotate, autoRotateSpeed, enableDrag, preset]);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    reducedMotionRef.current = mq.matches;
+    const handler = () => {
+      reducedMotionRef.current = mq.matches;
+    };
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -270,7 +282,8 @@ export function IridescentLogo3D({
       const params = paramsRef.current;
       if (drag.isDragging) return;
 
-      const hasVelocity = Math.abs(drag.velocityX) > 0.0002 || Math.abs(drag.velocityY) > 0.0002;
+      const hasVelocity =
+        !reducedMotionRef.current && (Math.abs(drag.velocityX) > 0.0002 || Math.abs(drag.velocityY) > 0.0002);
       if (hasVelocity) {
         logoGroup.rotation.y += drag.velocityX;
         logoGroup.rotation.x = clamp(logoGroup.rotation.x + drag.velocityY, -1.1, 1.1);
@@ -279,8 +292,9 @@ export function IridescentLogo3D({
       } else {
         drag.velocityX = 0;
         drag.velocityY = 0;
-        if (params.autoRotate) {
-          const speed = params.autoRotateSpeed;
+        // reduced-motion 환경에서는 자동 회전을 생략하고 현재 각도를 유지한다 (드래그 직접 조작만 허용).
+        if (params.autoRotate && !reducedMotionRef.current) {
+          const speed = params.autoRotateSpeed * params.rotateMultiplier;
           drag.phase += speed * delta;
           const target = AUTO_ROTATE_AMPLITUDE * Math.sin(drag.phase);
           const ease = Math.min(1, delta * 4);

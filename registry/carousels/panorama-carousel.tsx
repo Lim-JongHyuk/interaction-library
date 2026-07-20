@@ -79,7 +79,7 @@ export function PanoramaCarousel({
 
   return (
     <div
-      className="relative h-80 w-full cursor-grab touch-none select-none overflow-hidden rounded-2xl bg-zinc-950 active:cursor-grabbing"
+      className="relative h-80 w-full cursor-grab touch-none select-none overflow-hidden rounded-2xl bg-zinc-950 outline-none focus-visible:ring-2 focus-visible:ring-accent active:cursor-grabbing"
       style={{ perspective: Math.round(radius * 0.62), perspectiveOrigin: "50% 45%" }}
       onPointerDown={(e) => {
         (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
@@ -104,8 +104,19 @@ export function PanoramaCarousel({
       onPointerCancel={() => {
         sim.current.dragging = false;
       }}
+      // 방향키로 한 카드씩 회전 — 드래그가 불가능한 사용자를 위한 대체 조작.
+      onKeyDown={(e) => {
+        if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+        e.preventDefault();
+        const s = sim.current;
+        s.velocity = 0;
+        s.angle += e.key === "ArrowLeft" ? -step : step;
+        const ring = ringRef.current;
+        if (ring) ring.style.transform = `rotateY(${s.angle}deg)`;
+      }}
       role="group"
       aria-label="파노라마 3D 캐러셀"
+      tabIndex={0}
     >
       {/* 바닥 반사 느낌의 비네트 */}
       <div

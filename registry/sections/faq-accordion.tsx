@@ -1,7 +1,7 @@
 "use client";
 
 // deps: motion
-import { useMemo, useState } from "react";
+import { useId, useMemo, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 
 const SPRING_PRESETS = {
@@ -69,6 +69,7 @@ export function FAQAccordion({
   animationSpeed = "smooth",
 }: FAQAccordionProps) {
   const reducedMotion = useReducedMotion();
+  const baseId = useId();
   const [query, setQuery] = useState("");
   const [openIds, setOpenIds] = useState<Set<number>>(
     () => new Set(defaultOpenIndex >= 0 ? [defaultOpenIndex] : [])
@@ -104,6 +105,8 @@ export function FAQAccordion({
         <div className="relative">
           <SearchIcon className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <input
+            type="search"
+            aria-label="Search FAQs"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search FAQs…"
@@ -122,6 +125,8 @@ export function FAQAccordion({
         ) : (
           filtered.map((item) => {
             const isOpen = openIds.has(item.__index);
+            const triggerId = `${baseId}-trigger-${item.__index}`;
+            const panelId = `${baseId}-panel-${item.__index}`;
             return (
               <div
                 key={item.__index}
@@ -129,6 +134,9 @@ export function FAQAccordion({
               >
                 <button
                   type="button"
+                  id={triggerId}
+                  aria-expanded={isOpen}
+                  aria-controls={panelId}
                   onClick={() => toggleItem(item.__index)}
                   className="flex w-full items-center justify-between gap-3 px-4 py-3.5 text-left text-sm font-semibold"
                 >
@@ -145,6 +153,9 @@ export function FAQAccordion({
                   {isOpen && (
                     <motion.div
                       key="content"
+                      id={panelId}
+                      role="region"
+                      aria-labelledby={triggerId}
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}

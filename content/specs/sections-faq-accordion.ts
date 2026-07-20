@@ -22,7 +22,10 @@ export const spec: MotionSpec = {
   ],
   dependencies: ["motion"],
   variants: ["react-ts-tw"],
-  a11y: { reducedMotion: "펼침/접힘 시 스프링 애니메이션 없이 즉시 높이가 전환된다." },
+  a11y: {
+    reducedMotion: "펼침/접힘 시 스프링 애니메이션 없이 즉시 높이가 전환된다.",
+    notes: ["트리거 버튼에 aria-expanded/aria-controls, 패널에 role=region이 적용된다."],
+  },
   install: { registryPath: "r/sections/faq-accordion.json" },
   credits: { author: "Jonghyuk", license: "MIT" },
   demo: {},

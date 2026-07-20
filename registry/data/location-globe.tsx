@@ -374,6 +374,11 @@ export function LocationGlobe({
     if (sim.status !== "dragging" || e.pointerId !== sim.pointerId) return;
     e.currentTarget.releasePointerCapture(e.pointerId);
     setIsDragging(false);
+    finishDrag();
+  }
+
+  function finishDrag() {
+    const sim = simRef.current;
     if (reducedMotionRef.current || sim.samples.length === 0) {
       sim.status = "idle";
       sim.velYaw = 0;
@@ -392,13 +397,26 @@ export function LocationGlobe({
     sim.releaseElapsed = 0;
   }
 
+  // 방향키로도 회전할 수 있게 해 드래그가 불가능한 사용자를 지원한다.
+  function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
+    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+    e.preventDefault();
+    const sim = simRef.current;
+    sim.status = "idle";
+    sim.velYaw = 0;
+    sim.yaw += (e.key === "ArrowLeft" ? -6 : 6) * DEG2RAD;
+    drawFrame();
+  }
+
   return (
     <div
       ref={wrapperRef}
       aria-label="위치가 표시된 인터랙티브 지구본"
       role="img"
+      tabIndex={0}
       style={{ touchAction: "none", cursor: isDragging ? "grabbing" : "grab" }}
-      className="relative h-full w-full overflow-hidden"
+      className="relative h-full w-full overflow-hidden rounded-[inherit] outline-none focus-visible:ring-2 focus-visible:ring-accent"
+      onKeyDown={handleKeyDown}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}

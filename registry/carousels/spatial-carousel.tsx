@@ -86,14 +86,29 @@ export function SpatialCarousel({ radius = 220, autoSpin = true, spinSpeed = 6 }
 
   const step = 360 / PANELS.length;
 
+  // 방향키로 한 패널씩 회전 — 드래그가 불가능한 사용자를 위한 대체 조작.
+  function onKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
+    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+    e.preventDefault();
+    const sim = simRef.current;
+    sim.velocity = 0;
+    sim.angle += e.key === "ArrowLeft" ? step : -step;
+    const ring = ringRef.current;
+    if (ring) ring.style.transform = `rotateY(${sim.angle}deg)`;
+  }
+
   return (
     <div
+      role="group"
+      aria-label="3D 실린더 캐러셀"
+      tabIndex={0}
+      onKeyDown={onKeyDown}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
       onPointerCancel={onPointerUp}
       style={{ perspective: 900 }}
-      className="flex h-64 w-full max-w-lg cursor-grab touch-none items-center justify-center overflow-hidden rounded-xl border border-border bg-muted/30 active:cursor-grabbing"
+      className="flex h-64 w-full max-w-lg cursor-grab touch-none items-center justify-center overflow-hidden rounded-xl border border-border bg-muted/30 outline-none focus-visible:ring-2 focus-visible:ring-accent active:cursor-grabbing"
     >
       <div
         ref={ringRef}

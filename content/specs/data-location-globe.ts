@@ -20,7 +20,10 @@ export const spec: MotionSpec = {
   variants: ["react-ts-tw"],
   a11y: {
     reducedMotion: "자동 회전과 위치 마커 펄스 애니메이션을 정지하고 정적인 지구본을 표시한다.",
-    notes: ["Canvas 2D로 렌더링되며 role=img으로 스크린리더에 노출된다."],
+    notes: [
+      "Canvas 2D로 렌더링되며 role=img으로 스크린리더에 노출된다.",
+      "포커스 후 ←/→ 방향키로 6°씩 회전할 수 있다 (드래그 대체 수단).",
+    ],
   },
   install: { registryPath: "r/data/location-globe.json" },
   credits: { license: "MIT" },
