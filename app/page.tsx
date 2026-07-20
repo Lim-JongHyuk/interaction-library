@@ -9,11 +9,11 @@ import { BorderBeamButton } from "@/registry/buttons/border-beam-button";
 import { LogoMarquee } from "@/registry/cms/logo-marquee";
 
 const FEATURED = [
-  "typography/shuffle",
+  "navigation/gooey-menu",
+  "embeds/terminal-frame",
   "interaction/iridescent-logo-3d",
-  "data/location-globe",
-  "buttons/magnetic-button",
-  "sections/faq-accordion",
+  "data/orbit-avatars",
+  "forms/otp-input",
   "carousels/coverflow-carousel",
 ];
 

@@ -2,7 +2,7 @@
 
 **Motion, defined.** — 움직임을 스펙으로 정의하고, 라이브로 미리보고, copy 한 번 또는 CLI로 설치하는 오픈 모션 컴포넌트 갤러리.
 
-42개 컴포넌트 · 13개 카테고리 (Typography, Interaction, Backgrounds, Carousels, Data, Sections …)
+71개 컴포넌트 · 13개 카테고리 (Typography, Interaction, Backgrounds, Carousels, Data, Sections …)
 
 ## 특징
 

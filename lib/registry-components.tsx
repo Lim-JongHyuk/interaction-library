@@ -66,6 +66,10 @@ import { VelocityMarquee } from "@/registry/typography/velocity-marquee";
 import { SpiralSlider } from "@/registry/carousels/spiral-slider";
 import { ImageTrail } from "@/registry/interaction/image-trail";
 import { Constellation } from "@/registry/backgrounds/constellation";
+import { GooeyMenu } from "@/registry/navigation/gooey-menu";
+import { TerminalFrame } from "@/registry/embeds/terminal-frame";
+import { OrbitAvatars } from "@/registry/data/orbit-avatars";
+import { OTPInput } from "@/registry/forms/otp-input";
 
 /**
  * 명시적 배럴. registry/**.tsx 신규 컴포넌트 추가 시 여기에 함께 등록해야
@@ -140,4 +144,8 @@ export const registryComponents: Record<string, ComponentType<any>> = {
   "carousels/spiral-slider": SpiralSlider,
   "interaction/image-trail": ImageTrail,
   "backgrounds/constellation": Constellation,
+  "navigation/gooey-menu": GooeyMenu,
+  "embeds/terminal-frame": TerminalFrame,
+  "data/orbit-avatars": OrbitAvatars,
+  "forms/otp-input": OTPInput,
 };
