@@ -9,12 +9,12 @@ import { BorderBeamButton } from "@/registry/buttons/border-beam-button";
 import { LogoMarquee } from "@/registry/cms/logo-marquee";
 
 const FEATURED = [
-  "navigation/gooey-menu",
-  "embeds/terminal-frame",
-  "interaction/iridescent-logo-3d",
-  "data/orbit-avatars",
-  "forms/otp-input",
-  "carousels/coverflow-carousel",
+  "sections/horizontal-scroll",
+  "interaction/tilt-card",
+  "navigation/command-menu",
+  "backgrounds/animated-beam",
+  "typography/text-pressure",
+  "layout/spotlight-grid",
 ];
 
 export default function Home() {

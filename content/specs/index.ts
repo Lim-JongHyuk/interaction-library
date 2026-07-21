@@ -70,6 +70,16 @@ import gooeyMenu from "./navigation-gooey-menu";
 import terminalFrame from "./embeds-terminal-frame";
 import orbitAvatars from "./data-orbit-avatars";
 import otpInput from "./forms-otp-input";
+import swipeDeck from "./carousels-swipe-deck";
+import splitFlap from "./data-split-flap";
+import infiniteCanvas from "./interaction-infinite-canvas";
+import deviceScroll from "./sections-device-scroll";
+import horizontalScroll from "./sections-horizontal-scroll";
+import tiltCard from "./interaction-tilt-card";
+import commandMenu from "./navigation-command-menu";
+import animatedBeam from "./backgrounds-animated-beam";
+import textPressure from "./typography-text-pressure";
+import spotlightGrid from "./layout-spotlight-grid";
 
 /**
  * 명시적 배럴. content/specs/*.ts 신규 파일 추가 시 여기에 함께 등록해야
@@ -147,4 +157,14 @@ export const allSpecs: MotionSpec[] = [
   terminalFrame,
   orbitAvatars,
   otpInput,
+  swipeDeck,
+  splitFlap,
+  infiniteCanvas,
+  deviceScroll,
+  horizontalScroll,
+  tiltCard,
+  commandMenu,
+  animatedBeam,
+  textPressure,
+  spotlightGrid,
 ];

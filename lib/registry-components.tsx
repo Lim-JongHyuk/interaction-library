@@ -70,6 +70,16 @@ import { GooeyMenu } from "@/registry/navigation/gooey-menu";
 import { TerminalFrame } from "@/registry/embeds/terminal-frame";
 import { OrbitAvatars } from "@/registry/data/orbit-avatars";
 import { OTPInput } from "@/registry/forms/otp-input";
+import { SwipeDeck } from "@/registry/carousels/swipe-deck";
+import { SplitFlap } from "@/registry/data/split-flap";
+import { InfiniteCanvas } from "@/registry/interaction/infinite-canvas";
+import { DeviceScroll } from "@/registry/sections/device-scroll";
+import { HorizontalScrollGallery } from "@/registry/sections/horizontal-scroll";
+import { ParallaxTiltCard } from "@/registry/interaction/tilt-card";
+import { CommandPalette } from "@/registry/navigation/command-menu";
+import { AnimatedBeam } from "@/registry/backgrounds/animated-beam";
+import { TextPressure } from "@/registry/typography/text-pressure";
+import { SpotlightCardGrid } from "@/registry/layout/spotlight-grid";
 
 /**
  * 명시적 배럴. registry/**.tsx 신규 컴포넌트 추가 시 여기에 함께 등록해야
@@ -148,4 +158,14 @@ export const registryComponents: Record<string, ComponentType<any>> = {
   "embeds/terminal-frame": TerminalFrame,
   "data/orbit-avatars": OrbitAvatars,
   "forms/otp-input": OTPInput,
+  "carousels/swipe-deck": SwipeDeck,
+  "data/split-flap": SplitFlap,
+  "interaction/infinite-canvas": InfiniteCanvas,
+  "sections/device-scroll": DeviceScroll,
+  "sections/horizontal-scroll": HorizontalScrollGallery,
+  "interaction/tilt-card": ParallaxTiltCard,
+  "navigation/command-menu": CommandPalette,
+  "backgrounds/animated-beam": AnimatedBeam,
+  "typography/text-pressure": TextPressure,
+  "layout/spotlight-grid": SpotlightCardGrid,
 };
