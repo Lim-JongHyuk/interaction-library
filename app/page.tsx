@@ -3,10 +3,8 @@ import { CATEGORIES } from "@/lib/categories";
 import { loadSpecs } from "@/lib/load-specs";
 import { siteConfig } from "@/lib/site-config";
 import { ComponentCard } from "@/components/site/component-card";
-import { ShuffleText } from "@/registry/typography/shuffle";
 import { AuroraMesh } from "@/registry/backgrounds/aurora-mesh";
 import { BorderBeamButton } from "@/registry/buttons/border-beam-button";
-import { LogoMarquee } from "@/registry/cms/logo-marquee";
 
 const FEATURED = [
   "sections/horizontal-scroll",
@@ -46,7 +44,7 @@ export default function Home() {
               {specs.length} components · {CATEGORIES.length} categories · MIT
             </span>
             <h1 className="text-5xl font-semibold leading-[1.05] tracking-tight sm:text-7xl">
-              <ShuffleText text="Motion," />
+              Motion,
               <br />
               <span className="bg-gradient-to-r from-foreground via-foreground to-foreground/40 bg-clip-text text-transparent">
                 defined.
@@ -73,11 +71,6 @@ export default function Home() {
               )}
             </div>
           </div>
-        </div>
-
-        {/* 하단: 데모 워드마크 마퀴 */}
-        <div className="absolute inset-x-0 bottom-5 opacity-50">
-          <LogoMarquee speed={40} gap={64} />
         </div>
       </section>
 

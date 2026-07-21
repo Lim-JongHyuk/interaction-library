@@ -88,11 +88,7 @@ function FlapCell({
   const currRef = useRef(" ");
 
   useEffect(() => {
-    if (reducedMotion) {
-      currRef.current = target;
-      setFlip({ prev: target, curr: target, count: 0 });
-      return;
-    }
+    if (reducedMotion) return;
     let interval: ReturnType<typeof setInterval> | undefined;
     const timer = setTimeout(() => {
       interval = setInterval(() => {
@@ -117,7 +113,7 @@ function FlapCell({
     };
   }, [target, speed, delay, reducedMotion]);
 
-  const { prev, curr, count } = flip;
+  const { prev, curr, count } = reducedMotion ? { prev: target, curr: target, count: 0 } : flip;
   const half = speed / 2000; // 반쪽 플립 시간(s)
 
   return (
@@ -130,7 +126,7 @@ function FlapCell({
       <Half char={curr} pos="top" />
       <Half char={prev} pos="bottom" />
 
-      {count > 0 && (
+      {!reducedMotion && count > 0 && (
         <>
           {/* 이전 글자 위 반쪽이 접혀 내려온다 */}
           <motion.span
