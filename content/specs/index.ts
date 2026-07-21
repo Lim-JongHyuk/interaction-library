@@ -80,6 +80,12 @@ import commandMenu from "./navigation-command-menu";
 import animatedBeam from "./backgrounds-animated-beam";
 import textPressure from "./typography-text-pressure";
 import spotlightGrid from "./layout-spotlight-grid";
+import heroParallax from "./sections-hero-parallax";
+import scrollTimeline from "./sections-scroll-timeline";
+import testimonialStack from "./carousels-testimonial-stack";
+import expandingPanels from "./cms-expanding-panels";
+import lampGlow from "./backgrounds-lamp-glow";
+import magneticDots from "./interaction-magnetic-dots";
 
 /**
  * 명시적 배럴. content/specs/*.ts 신규 파일 추가 시 여기에 함께 등록해야
@@ -167,4 +173,10 @@ export const allSpecs: MotionSpec[] = [
   animatedBeam,
   textPressure,
   spotlightGrid,
+  heroParallax,
+  scrollTimeline,
+  testimonialStack,
+  expandingPanels,
+  lampGlow,
+  magneticDots,
 ];

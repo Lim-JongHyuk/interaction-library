@@ -80,6 +80,12 @@ import { CommandPalette } from "@/registry/navigation/command-menu";
 import { AnimatedBeam } from "@/registry/backgrounds/animated-beam";
 import { TextPressure } from "@/registry/typography/text-pressure";
 import { SpotlightCardGrid } from "@/registry/layout/spotlight-grid";
+import { HeroParallax } from "@/registry/sections/hero-parallax";
+import { ScrollTimeline } from "@/registry/sections/scroll-timeline";
+import { TestimonialStack } from "@/registry/carousels/testimonial-stack";
+import { ExpandingPanels } from "@/registry/cms/expanding-panels";
+import { LampGlow } from "@/registry/backgrounds/lamp-glow";
+import { MagneticDotGrid } from "@/registry/interaction/magnetic-dots";
 
 /**
  * 명시적 배럴. registry/**.tsx 신규 컴포넌트 추가 시 여기에 함께 등록해야
@@ -168,4 +174,10 @@ export const registryComponents: Record<string, ComponentType<any>> = {
   "backgrounds/animated-beam": AnimatedBeam,
   "typography/text-pressure": TextPressure,
   "layout/spotlight-grid": SpotlightCardGrid,
+  "sections/hero-parallax": HeroParallax,
+  "sections/scroll-timeline": ScrollTimeline,
+  "carousels/testimonial-stack": TestimonialStack,
+  "cms/expanding-panels": ExpandingPanels,
+  "backgrounds/lamp-glow": LampGlow,
+  "interaction/magnetic-dots": MagneticDotGrid,
 };
