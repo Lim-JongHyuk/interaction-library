@@ -11,6 +11,10 @@ export function ComponentCard({ spec }: { spec: MotionSpec }) {
   const posterText =
     (spec.demo.text as string | undefined) ??
     (spec.params[0]?.control === "text" ? String(spec.params[0].default) : spec.name);
+  // sections 카테고리의 scroll 트리거 컴포넌트는 sticky+vh 풀페이지 핀 레이아웃을
+  // 전제로 하므로, 카탈로그 카드에 여러 개가 동시에 라이브 마운트되면 스크롤 연동
+  // spring/transform 계산이 겹쳐 메인 스레드가 멈춘다. 카드에서는 항상 poster만 표시.
+  const isPinnedScrollSection = spec.category === "sections" && spec.trigger === "scroll";
 
   return (
     <Link
@@ -21,16 +25,22 @@ export function ComponentCard({ spec }: { spec: MotionSpec }) {
       {/* 고정 높이 프리뷰 캔버스 — 뷰포트 근처에서만 라이브 마운트(LazyPreview), 넘치면 클립.
           카드 전체가 링크이므로 프리뷰 내부 버튼이 클릭을 가로채지 않도록 pointer-events 차단 */}
       <div className="pointer-events-none relative h-36 overflow-hidden rounded-lg bg-muted">
-        <LazyPreview
-          className="absolute inset-0 flex items-center justify-center p-3 [&>*]:max-h-full [&>*]:max-w-full"
-          poster={<span className="text-sm text-muted-foreground">{posterText}</span>}
-        >
-          {Preview ? (
-            <Preview {...spec.demo} {...defaultParamValues(spec)} />
-          ) : (
+        {isPinnedScrollSection ? (
+          <div className="flex h-full w-full items-center justify-center">
             <span className="text-sm text-muted-foreground">{posterText}</span>
-          )}
-        </LazyPreview>
+          </div>
+        ) : (
+          <LazyPreview
+            className="absolute inset-0 flex items-center justify-center p-3 [&>*]:max-h-full [&>*]:max-w-full"
+            poster={<span className="text-sm text-muted-foreground">{posterText}</span>}
+          >
+            {Preview ? (
+              <Preview {...spec.demo} {...defaultParamValues(spec)} />
+            ) : (
+              <span className="text-sm text-muted-foreground">{posterText}</span>
+            )}
+          </LazyPreview>
+        )}
       </div>
       <div className="flex flex-col gap-1.5">
         <span className="text-sm font-medium tracking-tight">{spec.name}</span>
