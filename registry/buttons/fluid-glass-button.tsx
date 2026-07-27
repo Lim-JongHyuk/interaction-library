@@ -133,15 +133,24 @@ export function FluidGlassButton({
         className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.11),transparent_40%)]"
       />
 
-      {/* 안쪽에서 제자리 반짝이는 별 알갱이 */}
+      {/* 안쪽에서 제자리 반짝이는 별 알갱이.
+          트윌클 루프는 lit와 무관하게 한 번만 시작해 계속 돈다 — 각 별의
+          animate 대상 배열에 lit를 직접 섞으면 호버할 때마다 프레이머가
+          트랜지션을 처음부터 다시 시작해 delay(최대 3초)가 재적용되고,
+          그 별은 호버 직후 몇 초간 안 켜진 것처럼 보인다. 호버 밝기 부스트는
+          별도 래퍼의 opacity로 즉시(트랜지션 0.15초) 적용한다. */}
       {!reducedMotion && particles > 0 && (
-        <span aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <span
+          aria-hidden="true"
+          style={{ opacity: lit ? 1 : 0.6, transition: "opacity 0.15s ease" }}
+          className="pointer-events-none absolute inset-0"
+        >
           {stars.map((s, i) => (
             <motion.span
               key={i}
               style={{ left: `${s.x}%`, top: `${s.y}%`, width: s.size, height: s.size, background: glassColor }}
               className="absolute rounded-full"
-              animate={{ opacity: [0.1, lit ? 1 : 0.65, 0.1], scale: [0.7, 1.3, 0.7] }}
+              animate={{ opacity: [0.1, 1, 0.1], scale: [0.7, 1.3, 0.7] }}
               transition={{ duration: s.dur, delay: s.delay, repeat: Infinity, ease: "easeInOut" }}
             />
           ))}
