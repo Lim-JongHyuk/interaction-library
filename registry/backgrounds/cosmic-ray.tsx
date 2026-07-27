@@ -74,17 +74,6 @@ const FRAG = /* glsl */ `
     return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
   }
 
-  float fbm(vec2 p) {
-    float v = 0.0;
-    float amp = 0.5;
-    for (int i = 0; i < 4; i++) {
-      v += amp * valueNoise(p);
-      p *= 2.02;
-      amp *= 0.5;
-    }
-    return v;
-  }
-
   // 셀당 별 하나 — 3x3 이웃 탐색 없이도 충분히 조밀하고 훨씬 가볍다.
   float starLayer(vec2 uv, float scale, float t, float seed) {
     vec2 g = uv * scale;
@@ -131,37 +120,56 @@ const FRAG = /* glsl */ `
     float sa = sin(-uAngle);
     vec2 q = vec2(p.x * ca - p.y * sa, p.x * sa + p.y * ca);
 
-    vec3 col = uBg;
+    // 광선이 향하는 방향(화면 좌표계)
+    vec2 beamDir = vec2(cos(uAngle), sin(uAngle));
 
-    // 다층 별밭 — 층마다 다른 속도로 흘러 시차(parallax)가 생긴다
+    vec3 col = uBg;
+    vec2 suv = vec2(uv.x * aspect, uv.y);
+
+    // 다층 별밭. 샘플 좌표를 beamDir 쪽으로 밀면 화면상 별은 그 반대,
+    // 즉 광선이 뻗는 반대 방향으로 흘러간다. 레이어마다 속도를 달리해 시차를 만든다.
     if (uStars > 0.5) {
-      vec2 suv = vec2(uv.x * aspect, uv.y);
+      vec2 drift = beamDir * uTime * (0.004 + uSpeed * 0.004);
       float s = 0.0;
-      s += starLayer(suv + vec2(uTime * 0.004, 0.0), 26.0 * uStarDensity, uTime, 1.0) * 0.9;
-      s += starLayer(suv + vec2(uTime * 0.009, 0.0), 46.0 * uStarDensity, uTime, 7.3) * 0.6;
-      s += starLayer(suv + vec2(uTime * 0.016, 0.0), 78.0 * uStarDensity, uTime, 19.7) * 0.35;
+      s += starLayer(suv + drift * 3.0, 26.0 * uStarDensity, uTime, 1.0) * 0.9;
+      s += starLayer(suv + drift * 1.8, 46.0 * uStarDensity, uTime, 7.3) * 0.6;
+      s += starLayer(suv + drift * 0.9, 78.0 * uStarDensity, uTime, 19.7) * 0.35;
       col += vec3(s);
     }
 
     float d = length(p);
 
     // 코어 주변 아우라
-    col += uAura * exp(-d * 4.5) * 0.5;
+    col += uAura * exp(-d * 4.5) * 0.45;
 
-    // 광선 본체 — 앞으로 갈수록 벌어지고 흐려지며, 결이 바깥으로 흐른다
-    float beam = 0.0;
     if (q.x > 0.0) {
       float along = q.x;
-      float w = uSpread * (0.015 + along * 0.55);
+      float w = uSpread * (0.010 + along * 0.40);
       float prof = exp(-(q.y * q.y) / max(w * w, 1e-6));
       float fade = exp(-along / max(uLength, 0.001));
-      float streak = fbm(vec2(along * 7.0 - uTime * uSpeed * 1.3, q.y / max(w, 1e-4) * 2.6));
-      beam = prof * fade * (0.5 + 0.85 * streak);
-    }
-    col += mix(uAura, uCore, clamp(beam * 1.6, 0.0, 1.0)) * beam * 2.3;
 
-    // 코어
-    col += uCore * coreShape(q, d);
+      // 기울기는 하나의 광선 위에서 항상 일정하다. 이 값을 줄무늬 좌표로 쓰면
+      // 가는 빛줄기들이 코어 한 점으로 정확히 수렴한다 — 연기가 아니라 광선이 된다.
+      float slope = q.y / max(along, 1e-4);
+      float n1 = valueNoise(vec2(slope * 130.0, uTime * 0.22));
+      float n2 = valueNoise(vec2(slope * 310.0 + 11.0, uTime * 0.16));
+      float rays = pow(n1, 2.0) * 0.8 + pow(n2, 3.0) * 0.6;
+      rays = 0.30 + 1.35 * rays;
+
+      float beam = prof * fade * rays;
+      col += mix(uAura, uCore, clamp(beam * 1.4, 0.0, 1.0)) * beam * 2.3;
+
+      // 축을 따라 흐르는 밝은 심지 — 에너지 파동처럼 굵기가 미세하게 뛴다
+      float spine = exp(-(q.y * q.y) / max(w * w * 0.030, 1e-6)) * fade;
+      col += uCore * spine * (0.80 + 0.25 * sin(uTime * 2.0));
+
+      // 광선 주변에서 피어올랐다 사라지는 빛 알갱이
+      float motes = starLayer(suv * 1.6 + vec2(-uTime * 0.015, uTime * 0.03), 44.0, uTime * 2.2, 55.3);
+      col += uCore * motes * prof * fade * 1.1;
+    }
+
+    // 코어는 지속적으로 맥동한다
+    col += uCore * coreShape(q, d) * (1.0 + 0.16 * sin(uTime * 2.4));
 
     gl_FragColor = vec4(col, 1.0);
   }

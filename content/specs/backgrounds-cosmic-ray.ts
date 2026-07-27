@@ -7,7 +7,7 @@ export const spec: MotionSpec = {
   description: "GLSL 셰이더로 그린 심우주 배경. 반짝이는 다층 별밭 위로 코어 별에서 광선이 뻗어나간다.",
   tags: ["space", "stars", "webgl", "shader", "glsl", "beam", "parallax", "background"],
   trigger: "loop",
-  triggerNote: "상시 렌더링되며 별이 반짝이고 광선 결이 흐른다. IntersectionObserver로 화면 밖에서는 렌더 루프를 멈춘다.",
+  triggerNote: "가는 빛줄기들이 코어로 수렴한 채 일렁이고, 별밭은 광선의 반대 방향으로 시차를 두고 천천히 흘러간다. IntersectionObserver로 화면 밖에서는 렌더 루프를 멈춘다.",
   params: [
     { key: "coreShape", label: "Core Shape", control: "select", options: ["round", "lensFlare", "diamond", "comet"], default: "round" },
     { key: "originX", label: "Origin X", control: "slider", min: 0, max: 1, step: 0.01, default: 0.52 },
