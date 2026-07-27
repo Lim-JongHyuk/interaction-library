@@ -17,8 +17,11 @@ import { MagneticCharacters } from "@/registry/typography/magnetic-chars";
 import { CharStaggerHero } from "@/registry/typography/text-path-hint";
 import { FAQAccordion } from "@/registry/sections/faq-accordion";
 import { LocationGlobe } from "@/registry/data/location-globe";
+import { WorldMapConnections } from "@/registry/data/world-map-connections";
+import { CubeGallery } from "@/registry/interaction/cube-gallery";
 import { IridescentLogo3D } from "@/registry/interaction/iridescent-logo-3d";
-import { MagneticButton } from "@/registry/buttons/magnetic-button";
+import { FluidGlassButton } from "@/registry/buttons/fluid-glass-button";
+import { CosmicRay } from "@/registry/backgrounds/cosmic-ray";
 import { AuroraMesh } from "@/registry/backgrounds/aurora-mesh";
 import { FloatingDock } from "@/registry/navigation/floating-dock";
 import { FloatingLabelInput } from "@/registry/forms/floating-label-input";
@@ -112,7 +115,8 @@ export const registryComponents: Record<string, ComponentType<any>> = {
   "sections/faq-accordion": FAQAccordion,
   "data/location-globe": LocationGlobe,
   "interaction/iridescent-logo-3d": IridescentLogo3D,
-  "buttons/magnetic-button": MagneticButton,
+  "buttons/fluid-glass-button": FluidGlassButton,
+  "backgrounds/cosmic-ray": CosmicRay,
   "backgrounds/aurora-mesh": AuroraMesh,
   "navigation/floating-dock": FloatingDock,
   "forms/floating-label-input": FloatingLabelInput,
@@ -180,4 +184,6 @@ export const registryComponents: Record<string, ComponentType<any>> = {
   "cms/expanding-panels": ExpandingPanels,
   "backgrounds/lamp-glow": LampGlow,
   "interaction/magnetic-dots": MagneticDotGrid,
+  "data/world-map-connections": WorldMapConnections,
+  "interaction/cube-gallery": CubeGallery,
 };

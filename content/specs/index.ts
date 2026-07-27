@@ -17,8 +17,11 @@ import magneticChars from "./text-magnetic-chars";
 import textPathHint from "./text-text-path-hint";
 import faqAccordion from "./sections-faq-accordion";
 import locationGlobe from "./data-location-globe";
+import worldMapConnections from "./data-world-map-connections";
+import cubeGallery from "./interaction-cube-gallery";
 import iridescentLogo3d from "./interaction-iridescent-logo-3d";
-import magneticButton from "./buttons-magnetic-button";
+import fluidGlassButton from "./buttons-fluid-glass-button";
+import cosmicRay from "./backgrounds-cosmic-ray";
 import auroraMesh from "./backgrounds-aurora-mesh";
 import floatingDock from "./navigation-floating-dock";
 import floatingLabelInput from "./forms-floating-label-input";
@@ -111,7 +114,8 @@ export const allSpecs: MotionSpec[] = [
   faqAccordion,
   locationGlobe,
   iridescentLogo3d,
-  magneticButton,
+  fluidGlassButton,
+  cosmicRay,
   auroraMesh,
   floatingDock,
   floatingLabelInput,
@@ -179,4 +183,6 @@ export const allSpecs: MotionSpec[] = [
   expandingPanels,
   lampGlow,
   magneticDots,
+  worldMapConnections,
+  cubeGallery,
 ];
