@@ -17,11 +17,25 @@ interface JitterKeyframes {
   rot?: number[];
 }
 
+/** 시드 기반 의사난수(mulberry32). intensity/rotate로 시드를 고정해 서버 렌더와
+ * 클라이언트 하이드레이션이 항상 같은 키프레임을 만들도록 한다
+ * (Math.random()을 쓰면 렌더마다 값이 달라져 hydration mismatch가 난다). */
+function mulberry32(seed: number) {
+  let a = seed >>> 0;
+  return function rand() {
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
 function makeKeyframes(intensity: number, rotate: boolean): JitterKeyframes {
   const steps = 6;
-  const x = Array.from({ length: steps }, () => (Math.random() - 0.5) * intensity * 2);
-  const y = Array.from({ length: steps }, () => (Math.random() - 0.5) * intensity * 2);
-  const rot = rotate ? Array.from({ length: steps }, () => (Math.random() - 0.5) * intensity) : undefined;
+  const rand = mulberry32(Math.round(intensity * 1000) * 2654435761 + (rotate ? 1 : 0) + 1);
+  const x = Array.from({ length: steps }, () => (rand() - 0.5) * intensity * 2);
+  const y = Array.from({ length: steps }, () => (rand() - 0.5) * intensity * 2);
+  const rot = rotate ? Array.from({ length: steps }, () => (rand() - 0.5) * intensity) : undefined;
   x.push(0);
   y.push(0);
   rot?.push(0);

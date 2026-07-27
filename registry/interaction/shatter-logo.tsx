@@ -18,12 +18,26 @@ interface Shard {
   rotate: number;
 }
 
+/** 시드 기반 의사난수(mulberry32). shardCount로 시드를 고정해 서버 렌더와
+ * 클라이언트 하이드레이션이 항상 같은 파편 지오메트리를 만들도록 한다
+ * (Math.random()을 쓰면 렌더마다 값이 달라져 hydration mismatch가 난다). */
+function mulberry32(seed: number) {
+  let a = seed >>> 0;
+  return function rand() {
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
 /**
  * 지터가 섞인 그리드 정점으로 유리 균열 느낌의 파편 폴리곤을 생성한다.
  * 각 파편은 같은 배경을 공유하고 clip-path로 잘려 있어,
  * 흩어질 때 실제로 하나의 면이 깨진 것처럼 보인다.
  */
 function makeShards(shardCount: number): Shard[] {
+  const rand = mulberry32(shardCount * 2654435761 + 1);
   // shardCount≈cols*rows 근사 그리드
   const cols = Math.max(2, Math.round(Math.sqrt(shardCount)));
   const rows = Math.max(2, Math.round(shardCount / cols));
@@ -37,8 +51,8 @@ function makeShards(shardCount: number): Shard[] {
     for (let c = 0; c <= cols; c++) {
       const edgeX = c === 0 || c === cols;
       const edgeY = r === 0 || r === rows;
-      px[r][c] = (c / cols) * 100 + (edgeX ? 0 : (Math.random() - 0.5) * (60 / cols));
-      py[r][c] = (r / rows) * 100 + (edgeY ? 0 : (Math.random() - 0.5) * (60 / rows));
+      px[r][c] = (c / cols) * 100 + (edgeX ? 0 : (rand() - 0.5) * (60 / cols));
+      py[r][c] = (r / rows) * 100 + (edgeY ? 0 : (rand() - 0.5) * (60 / rows));
     }
   }
 
@@ -57,7 +71,7 @@ function makeShards(shardCount: number): Shard[] {
         clipPath: `polygon(${pts.map(([x, y]) => `${x.toFixed(1)}% ${y.toFixed(1)}%`).join(", ")})`,
         cx,
         cy,
-        rotate: (Math.random() - 0.5) * 120,
+        rotate: (rand() - 0.5) * 120,
       });
     }
   }
@@ -68,7 +82,7 @@ export function ShatterLogo({ label = "MK", shardCount = 12, force = 120, durati
   const reducedMotion = useReducedMotion();
   const [shattered, setShattered] = useState(false);
 
-  // 랜덤 파편 지오메트리는 state로 보관 (렌더 순수성), 파라미터 변경 시 렌더 중 조정으로 재생성
+  // 파편 지오메트리는 state로 보관(렌더 순수성), 파라미터 변경 시 렌더 중 조정으로 재생성
   const [shards, setShards] = useState<Shard[]>(() => makeShards(shardCount));
   const [prevCount, setPrevCount] = useState(shardCount);
   if (prevCount !== shardCount) {

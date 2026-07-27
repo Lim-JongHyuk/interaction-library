@@ -26,7 +26,7 @@ export function DetailView({
   const [tab, setTab] = useState<Tab>("usage");
 
   const Preview = registryComponents[`${spec.category}/${spec.slug}`];
-  const usageCode = generateUsageCode(spec, values);
+  const usageCode = generateUsageCode(spec, values, source);
   const mounted = useMounted();
   const origin = mounted ? window.location.origin : "<deployment-url>";
   const registryUrl = `${origin}/${spec.install.registryPath}`;

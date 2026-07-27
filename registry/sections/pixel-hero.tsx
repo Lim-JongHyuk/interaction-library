@@ -12,11 +12,25 @@ export interface PixelHeroProps {
   color?: string;
 }
 
+/** 시드 기반 의사난수(mulberry32). pixelSize로 시드를 고정해 서버 렌더와
+ * 클라이언트 하이드레이션이 항상 같은 딜레이 배열을 만들도록 한다
+ * (Math.random()을 쓰면 렌더마다 값이 달라져 hydration mismatch가 난다). */
+function mulberry32(seed: number) {
+  let a = seed >>> 0;
+  return function rand() {
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
 // 고정 캔버스 비율(16:7) 기준으로 셀 수를 계산하고 상한(~500)을 적용
 function makeGrid(pixelSize: number) {
   const cols = Math.min(40, Math.max(8, Math.round(480 / pixelSize)));
   const rows = Math.min(14, Math.max(4, Math.round(210 / pixelSize)));
-  const delays = Array.from({ length: cols * rows }, () => Math.random());
+  const rand = mulberry32(cols * 2654435761 + rows);
+  const delays = Array.from({ length: cols * rows }, () => rand());
   return { cols, rows, delays };
 }
 
