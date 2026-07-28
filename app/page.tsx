@@ -11,7 +11,7 @@ const FEATURED = [
   "interaction/tilt-card",
   "navigation/command-menu",
   "backgrounds/animated-beam",
-  "typography/text-pressure",
+  "typography/particle-text",
   "layout/spotlight-grid",
 ];
 

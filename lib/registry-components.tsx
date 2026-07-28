@@ -81,7 +81,7 @@ import { HorizontalScrollGallery } from "@/registry/sections/horizontal-scroll";
 import { ParallaxTiltCard } from "@/registry/interaction/tilt-card";
 import { CommandPalette } from "@/registry/navigation/command-menu";
 import { AnimatedBeam } from "@/registry/backgrounds/animated-beam";
-import { TextPressure } from "@/registry/typography/text-pressure";
+import { ParticleText } from "@/registry/typography/particle-text";
 import { SpotlightCardGrid } from "@/registry/layout/spotlight-grid";
 import { HeroParallax } from "@/registry/sections/hero-parallax";
 import { ScrollTimeline } from "@/registry/sections/scroll-timeline";
@@ -176,7 +176,7 @@ export const registryComponents: Record<string, ComponentType<any>> = {
   "interaction/tilt-card": ParallaxTiltCard,
   "navigation/command-menu": CommandPalette,
   "backgrounds/animated-beam": AnimatedBeam,
-  "typography/text-pressure": TextPressure,
+  "typography/particle-text": ParticleText,
   "layout/spotlight-grid": SpotlightCardGrid,
   "sections/hero-parallax": HeroParallax,
   "sections/scroll-timeline": ScrollTimeline,

@@ -9,7 +9,8 @@ import { SVGLoader } from "three/examples/jsm/loaders/SVGLoader.js";
 // spinning a full 360 degrees, so the front face stays in view at all times.
 const AUTO_ROTATE_AMPLITUDE = THREE.MathUtils.degToRad(34);
 
-const DEFAULT_LOGO_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="27" cy="30" r="17" fill="#7C6CF2"/><circle cx="73" cy="30" r="17" fill="#4C8DFF"/><circle cx="50" cy="74" r="17" fill="#F2E9D8"/></svg>`;
+// MotionKit 브랜드 마크 — 세 개의 겹치는 쐐기꼴로 이뤄진 M 모노그램.
+const DEFAULT_LOGO_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M0 88 L20 10 L40 88 Z" fill="#7C6CF2"/><path d="M30 88 L50 10 L70 88 Z" fill="#4C8DFF"/><path d="M60 88 L80 10 L100 88 Z" fill="#22D3EE"/></svg>`;
 const DEFAULT_LOGO_DATA_URL = `data:image/svg+xml;utf8,${encodeURIComponent(DEFAULT_LOGO_SVG)}`;
 
 const PRESETS = {

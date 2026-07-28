@@ -81,7 +81,7 @@ import horizontalScroll from "./sections-horizontal-scroll";
 import tiltCard from "./interaction-tilt-card";
 import commandMenu from "./navigation-command-menu";
 import animatedBeam from "./backgrounds-animated-beam";
-import textPressure from "./typography-text-pressure";
+import particleText from "./typography-particle-text";
 import spotlightGrid from "./layout-spotlight-grid";
 import heroParallax from "./sections-hero-parallax";
 import scrollTimeline from "./sections-scroll-timeline";
@@ -175,7 +175,7 @@ export const allSpecs: MotionSpec[] = [
   tiltCard,
   commandMenu,
   animatedBeam,
-  textPressure,
+  particleText,
   spotlightGrid,
   heroParallax,
   scrollTimeline,
