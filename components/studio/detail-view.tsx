@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { MotionSpec } from "@/lib/spec";
 import { defaultParamValues, generateUsageCode, type ParamValues } from "@/lib/codegen";
 import { registryComponents } from "@/lib/registry-components";
@@ -24,6 +24,21 @@ export function DetailView({
   const [replayKey, setReplayKey] = useState(0);
   const [gridBg, setGridBg] = useState(false);
   const [tab, setTab] = useState<Tab>("usage");
+  const [fullscreen, setFullscreen] = useState(false);
+
+  useEffect(() => {
+    if (!fullscreen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setFullscreen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [fullscreen]);
 
   const Preview = registryComponents[`${spec.category}/${spec.slug}`];
   const usageCode = generateUsageCode(spec, values, source);
@@ -55,11 +70,20 @@ export function DetailView({
         <div className="flex flex-col gap-3">
           <div
             className={cn(
-              "flex min-h-64 items-center justify-center rounded-lg border border-border p-8",
+              "relative flex min-h-64 items-center justify-center rounded-lg border border-border p-8",
               gridBg &&
                 "bg-[radial-gradient(circle,var(--border)_1px,transparent_1px)] [background-size:16px_16px]"
             )}
           >
+            <button
+              type="button"
+              onClick={() => setFullscreen(true)}
+              aria-label="전체화면으로 보기"
+              title="전체화면으로 보기"
+              className="absolute right-2 top-2 z-10 flex size-8 items-center justify-center rounded-md border border-border bg-background/80 text-muted-foreground backdrop-blur hover:bg-muted hover:text-foreground"
+            >
+              <MaximizeIcon className="size-4" />
+            </button>
             {Preview ? (
               spec.category === "backgrounds" ? (
                 <div className="h-72 w-full">
@@ -204,7 +228,96 @@ export function DetailView({
           </tbody>
         </table>
       </div>
+
+      {fullscreen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${spec.name} 전체화면 프리뷰`}
+          className="fixed inset-0 z-50 flex flex-col bg-background"
+        >
+          <div className="flex items-center justify-between border-b border-border px-4 py-3">
+            <span className="text-sm font-medium">{spec.name}</span>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setReplayKey((k) => k + 1)}
+                className="rounded-md border border-border px-3 py-1.5 text-sm hover:bg-muted"
+              >
+                ▶ Replay
+              </button>
+              <button
+                type="button"
+                onClick={() => setGridBg((v) => !v)}
+                aria-pressed={gridBg}
+                className={cn(
+                  "rounded-md border border-border px-3 py-1.5 text-sm hover:bg-muted",
+                  gridBg && "bg-muted"
+                )}
+              >
+                ▦ Grid
+              </button>
+              <button
+                type="button"
+                onClick={() => setFullscreen(false)}
+                aria-label="전체화면 닫기"
+                title="전체화면 닫기 (Esc)"
+                className="flex size-8 items-center justify-center rounded-md border border-border text-muted-foreground hover:bg-muted hover:text-foreground"
+              >
+                <CloseIcon className="size-4" />
+              </button>
+            </div>
+          </div>
+          <div
+            className={cn(
+              "flex flex-1 items-center justify-center overflow-auto p-8",
+              gridBg &&
+                "bg-[radial-gradient(circle,var(--border)_1px,transparent_1px)] [background-size:16px_16px]"
+            )}
+          >
+            {Preview && <Preview key={`fs-${replayKey}`} {...spec.demo} {...values} />}
+          </div>
+        </div>
+      )}
     </div>
+  );
+}
+
+function MaximizeIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M15 3h6v6" />
+      <path d="M9 21H3v-6" />
+      <path d="M21 3l-7 7" />
+      <path d="M3 21l7-7" />
+    </svg>
+  );
+}
+
+function CloseIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M18 6 6 18" />
+      <path d="M6 6l12 12" />
+    </svg>
   );
 }
 
