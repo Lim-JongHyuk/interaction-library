@@ -83,7 +83,7 @@ export default function EmojiBurst({
     const { x, y } = originRef.current;
     const spreadRadians = (Math.max(0, Math.min(180, spread)) * Math.PI) / 180;
     const count = Math.max(1, Math.round(burstCount));
-    const launch = Math.max(1, power) * 5;
+    const launch = Math.max(1, power) * 7;
     for (let index = 0; index < count; index += 1) {
       const angle = -Math.PI / 2 + (Math.random() - 0.5) * spreadRadians;
       const speed = launch * (0.72 + Math.random() * 0.5);
@@ -95,7 +95,7 @@ export default function EmojiBurst({
         rotation: (Math.random() - 0.5) * 0.5,
         spin: (Math.random() - 0.5) * 5,
         age: 0,
-        life: 1.8 + Math.random() * 1.4,
+        life: 1.9 + Math.random() * 1.2,
         emoji: emojiList[Math.floor(Math.random() * emojiList.length)] ?? "✨",
         size: Math.max(8, emojiSize) * (0.82 + Math.random() * 0.42),
       });
@@ -134,7 +134,7 @@ export default function EmojiBurst({
     const tick = (now: number) => {
       const dt = Math.min(0.04, (now - last) / 1000);
       last = now;
-      const gravityForce = Math.max(0, gravity) * 18;
+      const gravityForce = Math.max(0, gravity) * 45;
       context.clearRect(0, 0, width, height);
       particlesRef.current = particlesRef.current.filter((particle) => {
         particle.age += dt;
@@ -145,10 +145,13 @@ export default function EmojiBurst({
         const progress = particle.age / particle.life;
         if (progress >= 1) return false;
         context.save();
-        context.globalAlpha = Math.min(1, (1 - progress) * 1.8);
+        const fade = progress < 0.72 ? 1 : 1 - (progress - 0.72) / 0.28;
+        const scale = progress < 0.12 ? 0.7 + progress * 2.5 : 1;
+        context.globalAlpha = Math.max(0, fade);
         context.translate(particle.x, particle.y);
         context.rotate(particle.rotation);
-        context.font = `${particle.size}px "Apple Color Emoji", "Segoe UI Emoji", sans-serif`;
+        context.scale(scale, scale);
+        context.font = `${particle.size}px "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif`;
         context.textAlign = "center";
         context.textBaseline = "middle";
         context.fillText(particle.emoji, 0, 0);
