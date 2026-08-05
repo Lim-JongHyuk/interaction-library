@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { CATEGORIES } from "@/lib/categories";
 import { loadSpecs } from "@/lib/load-specs";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://motionkit.example.com";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://kinetiq.example.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const specs = loadSpecs();

@@ -6,9 +6,11 @@ import { Header } from "@/components/site/header";
 import { SidebarNav } from "@/components/site/sidebar-nav";
 import { siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/cn";
+import { PanelResizeHandle } from "@/components/site/panel-resize-handle";
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [sidebarWidth, setSidebarWidth] = useState(320);
   const pathname = usePathname();
   const [prevPathname, setPrevPathname] = useState(pathname);
 
@@ -18,14 +20,17 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="flex min-h-full flex-col">
-      <Header onMenuClick={() => setDrawerOpen(true)} />
+    <div className="flex min-h-full flex-col bg-background">
+      <div className="lg:hidden">
+        <Header onMenuClick={() => setDrawerOpen(true)} />
+      </div>
 
       <div className="flex flex-1">
-        <aside className="hidden w-60 shrink-0 border-r border-border lg:block">
-          <div className="sticky top-14 max-h-[calc(100vh-3.5rem)] overflow-y-auto">
+        <aside style={{ width: sidebarWidth }} className="relative hidden shrink-0 border-r border-border bg-[#1d1d1f] lg:block">
+          <div className="sticky top-0 h-screen overflow-y-auto">
             <SidebarNav />
           </div>
+          <PanelResizeHandle label="Resize library sidebar" className="-right-1 top-0 h-full" onResize={(delta) => setSidebarWidth((width) => Math.min(460, Math.max(220, width + delta)))} />
         </aside>
 
         <div
@@ -47,9 +52,6 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
               drawerOpen ? "translate-x-0" : "-translate-x-full"
             )}
           >
-            <div className="flex h-14 items-center border-b border-border px-4 font-semibold">
-              MotionKit
-            </div>
             <SidebarNav onNavigate={() => setDrawerOpen(false)} />
           </div>
         </div>
@@ -57,9 +59,9 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
         <main className="min-w-0 flex-1">{children}</main>
       </div>
 
-      <footer className="border-t border-border px-4 py-6 text-sm text-muted-foreground">
+      <footer className="border-t border-border px-4 py-5 font-mono text-xs text-muted-foreground">
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-          <span className="font-medium text-foreground/80">MotionKit</span>
+          <span className="font-medium text-foreground/80">Kinetiq</span>
           <span>MIT License</span>
           <span className="hidden sm:inline">Built with Next.js · motion · Tailwind CSS</span>
           {siteConfig.github && (

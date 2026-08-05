@@ -37,7 +37,15 @@ export function CompareSlider({
   const target = useMotionValue(initial);
   const pos = useSpring(target, { stiffness: 400, damping: 40 });
   const [ariaNow, setAriaNow] = useState(Math.round(initial));
+  const [appliedInitial, setAppliedInitial] = useState(initial);
   const dragging = useRef(false);
+
+  // initial은 모션 값의 시작점일 뿐이라 값이 바뀌어도 재마운트 없이는 반영되지 않는다
+  if (initial !== appliedInitial) {
+    setAppliedInitial(initial);
+    setAriaNow(Math.round(initial));
+    target.set(initial);
+  }
 
   const clip = useTransform(pos, (v) =>
     horizontal ? `inset(0 0 0 ${v}%)` : `inset(${v}% 0 0 0)`
@@ -75,6 +83,9 @@ export function CompareSlider({
         if (dragging.current) setFromPointer(e);
       }}
       onPointerUp={() => {
+        dragging.current = false;
+      }}
+      onPointerCancel={() => {
         dragging.current = false;
       }}
     >

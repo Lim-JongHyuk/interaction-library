@@ -43,8 +43,10 @@ export function generateUsageCode(spec: MotionSpec, values: ParamValues, source:
   const componentName = extractComponentName(source, pascalCase(spec.name));
   const importSlug = spec.slug;
 
+  // params가 같은 키를 다루면 studio 값이 우선 — 둘 다 내보내면 JSX prop이 중복된다
+  const paramKeys = new Set(spec.params.map((p) => p.key));
   const demoProps = Object.entries(spec.demo)
-    .filter(([, v]) => v !== undefined)
+    .filter(([k, v]) => v !== undefined && !paramKeys.has(k))
     .map(([k, v]) => formatProp(k, v as string | number | boolean));
 
   const changedProps = spec.params

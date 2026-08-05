@@ -19,7 +19,7 @@ import { FAQAccordion } from "@/registry/sections/faq-accordion";
 import { LocationGlobe } from "@/registry/data/location-globe";
 import { WorldMapConnections } from "@/registry/data/world-map-connections";
 import { CubeGallery } from "@/registry/interaction/cube-gallery";
-import { IridescentLogo3D } from "@/registry/interaction/iridescent-logo-3d";
+import { CosmicOrb } from "@/registry/interaction/cosmic-orb";
 import { FluidGlassButton } from "@/registry/buttons/fluid-glass-button";
 import { CosmicRay } from "@/registry/backgrounds/cosmic-ray";
 import { AuroraMesh } from "@/registry/backgrounds/aurora-mesh";
@@ -33,7 +33,6 @@ import { CoverflowCarousel } from "@/registry/carousels/coverflow-carousel";
 import { PixelHero } from "@/registry/sections/pixel-hero";
 import { FlipBook } from "@/registry/carousels/flip-book";
 import { MediaHoverList } from "@/registry/cms/media-hover-list";
-import { ShutterReveal } from "@/registry/interaction/shutter-reveal";
 import { MaskHoverReveal } from "@/registry/utilities/mask-hover-reveal";
 import { CursorPet } from "@/registry/interaction/cursor-pet";
 import { LiquidGradient } from "@/registry/backgrounds/liquid-gradient";
@@ -41,7 +40,6 @@ import { GlassPanels } from "@/registry/layout/glass-panels";
 import { GravityGallery } from "@/registry/interaction/gravity-gallery";
 import { SpatialCarousel } from "@/registry/carousels/spatial-carousel";
 import { KineticLines } from "@/registry/backgrounds/kinetic-lines";
-import { ShatterLogo } from "@/registry/interaction/shatter-logo";
 import { ThermalHeatmap } from "@/registry/data/thermal-heatmap";
 import { ParticleEngine } from "@/registry/backgrounds/particle-engine";
 import { FluidSimulation } from "@/registry/backgrounds/fluid-simulation";
@@ -50,7 +48,6 @@ import { ScrollShowcase } from "@/registry/sections/scroll-showcase";
 import { CompareSlider } from "@/registry/utilities/compare-slider";
 import { ScrollReveal } from "@/registry/typography/scroll-reveal";
 import { LogoMarquee } from "@/registry/cms/logo-marquee";
-import { ConfidentialFolder } from "@/registry/interaction/confidential-folder";
 import { FocusSliceCarousel } from "@/registry/carousels/focus-slice";
 import { GalleryStack } from "@/registry/carousels/gallery-stack";
 import { ProgressiveBlur } from "@/registry/utilities/progressive-blur";
@@ -71,7 +68,6 @@ import { ImageTrail } from "@/registry/interaction/image-trail";
 import { Constellation } from "@/registry/backgrounds/constellation";
 import { GooeyMenu } from "@/registry/navigation/gooey-menu";
 import { TerminalFrame } from "@/registry/embeds/terminal-frame";
-import { OrbitAvatars } from "@/registry/data/orbit-avatars";
 import { OTPInput } from "@/registry/forms/otp-input";
 import { SwipeDeck } from "@/registry/carousels/swipe-deck";
 import { SplitFlap } from "@/registry/data/split-flap";
@@ -80,7 +76,6 @@ import { DeviceScroll } from "@/registry/sections/device-scroll";
 import { HorizontalScrollGallery } from "@/registry/sections/horizontal-scroll";
 import { ParallaxTiltCard } from "@/registry/interaction/tilt-card";
 import { CommandPalette } from "@/registry/navigation/command-menu";
-import { AnimatedBeam } from "@/registry/backgrounds/animated-beam";
 import { ParticleText } from "@/registry/typography/particle-text";
 import { SpotlightCardGrid } from "@/registry/layout/spotlight-grid";
 import { HeroParallax } from "@/registry/sections/hero-parallax";
@@ -114,7 +109,6 @@ export const registryComponents: Record<string, ComponentType<any>> = {
   "typography/text-path-hint": CharStaggerHero,
   "sections/faq-accordion": FAQAccordion,
   "data/location-globe": LocationGlobe,
-  "interaction/iridescent-logo-3d": IridescentLogo3D,
   "buttons/fluid-glass-button": FluidGlassButton,
   "backgrounds/cosmic-ray": CosmicRay,
   "backgrounds/aurora-mesh": AuroraMesh,
@@ -128,7 +122,6 @@ export const registryComponents: Record<string, ComponentType<any>> = {
   "sections/pixel-hero": PixelHero,
   "carousels/flip-book": FlipBook,
   "cms/media-hover-list": MediaHoverList,
-  "interaction/shutter-reveal": ShutterReveal,
   "utilities/mask-hover-reveal": MaskHoverReveal,
   "interaction/cursor-pet": CursorPet,
   "backgrounds/liquid-gradient": LiquidGradient,
@@ -136,7 +129,6 @@ export const registryComponents: Record<string, ComponentType<any>> = {
   "interaction/gravity-gallery": GravityGallery,
   "carousels/spatial-carousel": SpatialCarousel,
   "backgrounds/kinetic-lines": KineticLines,
-  "interaction/shatter-logo": ShatterLogo,
   "data/thermal-heatmap": ThermalHeatmap,
   "backgrounds/particle-engine": ParticleEngine,
   "backgrounds/fluid-simulation": FluidSimulation,
@@ -145,7 +137,6 @@ export const registryComponents: Record<string, ComponentType<any>> = {
   "utilities/compare-slider": CompareSlider,
   "typography/scroll-reveal": ScrollReveal,
   "cms/logo-marquee": LogoMarquee,
-  "interaction/confidential-folder": ConfidentialFolder,
   "carousels/focus-slice": FocusSliceCarousel,
   "carousels/gallery-stack": GalleryStack,
   "utilities/progressive-blur": ProgressiveBlur,
@@ -166,7 +157,6 @@ export const registryComponents: Record<string, ComponentType<any>> = {
   "backgrounds/constellation": Constellation,
   "navigation/gooey-menu": GooeyMenu,
   "embeds/terminal-frame": TerminalFrame,
-  "data/orbit-avatars": OrbitAvatars,
   "forms/otp-input": OTPInput,
   "carousels/swipe-deck": SwipeDeck,
   "data/split-flap": SplitFlap,
@@ -175,7 +165,6 @@ export const registryComponents: Record<string, ComponentType<any>> = {
   "sections/horizontal-scroll": HorizontalScrollGallery,
   "interaction/tilt-card": ParallaxTiltCard,
   "navigation/command-menu": CommandPalette,
-  "backgrounds/animated-beam": AnimatedBeam,
   "typography/particle-text": ParticleText,
   "layout/spotlight-grid": SpotlightCardGrid,
   "sections/hero-parallax": HeroParallax,
@@ -186,4 +175,5 @@ export const registryComponents: Record<string, ComponentType<any>> = {
   "interaction/magnetic-dots": MagneticDotGrid,
   "data/world-map-connections": WorldMapConnections,
   "interaction/cube-gallery": CubeGallery,
+  "interaction/cosmic-orb": CosmicOrb,
 };

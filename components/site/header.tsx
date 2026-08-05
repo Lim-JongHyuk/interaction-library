@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ThemeToggle } from "@/components/site/theme-toggle";
 import { SearchTrigger } from "@/components/site/search-modal";
 import { siteConfig } from "@/lib/site-config";
+import { BrandMark } from "@/components/site/brand-mark";
 
 export function Header({ onMenuClick }: { onMenuClick: () => void }) {
   return (
@@ -17,10 +18,7 @@ export function Header({ onMenuClick }: { onMenuClick: () => void }) {
         <MenuIcon className="h-5 w-5" />
       </button>
 
-      <Link href="/" className="flex items-center gap-2 font-semibold tracking-tight">
-        <span className="inline-block h-2 w-2 rounded-full bg-accent" />
-        MotionKit
-      </Link>
+      <Link href="/" aria-label="Kinetiq home"><BrandMark label="Kinetiq" /></Link>
 
       <div className="ml-4 flex-1 max-w-sm">
         <SearchTrigger />

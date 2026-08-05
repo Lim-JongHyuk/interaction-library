@@ -33,14 +33,17 @@ export default async function CategoryIndexPage({
   const specs = getSpecsByCategory(category);
 
   return (
-    <div className="flex flex-col gap-6 px-6 py-10">
-      <h1 className="text-2xl font-semibold tracking-tight">{meta.label}</h1>
+    <div className="mk-home flex flex-col gap-6 px-4 py-7 md:px-6 md:py-8">
+      <div className="border-b border-border pb-4">
+        <p className="mb-2 font-mono text-xs uppercase tracking-[0.18em] text-accent">Component category</p>
+        <h1 className="text-2xl font-semibold tracking-tight">{meta.label}</h1>
+      </div>
       {specs.length === 0 ? (
         <p className="text-sm text-muted-foreground">아직 등록된 컴포넌트가 없습니다.</p>
       ) : (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
           {specs.map((spec) => (
-            <ComponentCard key={`${spec.category}/${spec.slug}`} spec={spec} />
+            <ComponentCard key={`${spec.category}/${spec.slug}`} spec={spec} gallery />
           ))}
         </div>
       )}

@@ -19,7 +19,7 @@ import faqAccordion from "./sections-faq-accordion";
 import locationGlobe from "./data-location-globe";
 import worldMapConnections from "./data-world-map-connections";
 import cubeGallery from "./interaction-cube-gallery";
-import iridescentLogo3d from "./interaction-iridescent-logo-3d";
+import cosmicOrb from "./interaction-cosmic-orb";
 import fluidGlassButton from "./buttons-fluid-glass-button";
 import cosmicRay from "./backgrounds-cosmic-ray";
 import auroraMesh from "./backgrounds-aurora-mesh";
@@ -33,7 +33,6 @@ import coverflowCarousel from "./carousels-coverflow-carousel";
 import pixelHero from "./sections-pixel-hero";
 import flipBook from "./carousels-flip-book";
 import mediaHoverList from "./cms-media-hover-list";
-import shutterReveal from "./interaction-shutter-reveal";
 import maskHoverReveal from "./utilities-mask-hover-reveal";
 import cursorPet from "./interaction-cursor-pet";
 import liquidGradient from "./backgrounds-liquid-gradient";
@@ -41,7 +40,6 @@ import glassPanels from "./layout-glass-panels";
 import gravityGallery from "./interaction-gravity-gallery";
 import spatialCarousel from "./carousels-spatial-carousel";
 import kineticLines from "./backgrounds-kinetic-lines";
-import shatterLogo from "./interaction-shatter-logo";
 import thermalHeatmap from "./data-thermal-heatmap";
 import particleEngine from "./backgrounds-particle-engine";
 import fluidSimulation from "./backgrounds-fluid-simulation";
@@ -50,7 +48,6 @@ import scrollShowcase from "./sections-scroll-showcase";
 import compareSlider from "./utilities-compare-slider";
 import scrollReveal from "./text-scroll-reveal";
 import logoMarquee from "./cms-logo-marquee";
-import confidentialFolder from "./interaction-confidential-folder";
 import focusSlice from "./carousels-focus-slice";
 import galleryStack from "./carousels-gallery-stack";
 import progressiveBlur from "./utilities-progressive-blur";
@@ -71,7 +68,6 @@ import imageTrail from "./interaction-image-trail";
 import constellation from "./backgrounds-constellation";
 import gooeyMenu from "./navigation-gooey-menu";
 import terminalFrame from "./embeds-terminal-frame";
-import orbitAvatars from "./data-orbit-avatars";
 import otpInput from "./forms-otp-input";
 import swipeDeck from "./carousels-swipe-deck";
 import splitFlap from "./data-split-flap";
@@ -80,7 +76,6 @@ import deviceScroll from "./sections-device-scroll";
 import horizontalScroll from "./sections-horizontal-scroll";
 import tiltCard from "./interaction-tilt-card";
 import commandMenu from "./navigation-command-menu";
-import animatedBeam from "./backgrounds-animated-beam";
 import particleText from "./typography-particle-text";
 import spotlightGrid from "./layout-spotlight-grid";
 import heroParallax from "./sections-hero-parallax";
@@ -113,7 +108,7 @@ export const allSpecs: MotionSpec[] = [
   textPathHint,
   faqAccordion,
   locationGlobe,
-  iridescentLogo3d,
+  cosmicOrb,
   fluidGlassButton,
   cosmicRay,
   auroraMesh,
@@ -127,7 +122,6 @@ export const allSpecs: MotionSpec[] = [
   pixelHero,
   flipBook,
   mediaHoverList,
-  shutterReveal,
   maskHoverReveal,
   cursorPet,
   liquidGradient,
@@ -135,7 +129,6 @@ export const allSpecs: MotionSpec[] = [
   gravityGallery,
   spatialCarousel,
   kineticLines,
-  shatterLogo,
   thermalHeatmap,
   particleEngine,
   fluidSimulation,
@@ -144,7 +137,6 @@ export const allSpecs: MotionSpec[] = [
   compareSlider,
   scrollReveal,
   logoMarquee,
-  confidentialFolder,
   focusSlice,
   galleryStack,
   progressiveBlur,
@@ -165,7 +157,6 @@ export const allSpecs: MotionSpec[] = [
   constellation,
   gooeyMenu,
   terminalFrame,
-  orbitAvatars,
   otpInput,
   swipeDeck,
   splitFlap,
@@ -174,7 +165,6 @@ export const allSpecs: MotionSpec[] = [
   horizontalScroll,
   tiltCard,
   commandMenu,
-  animatedBeam,
   particleText,
   spotlightGrid,
   heroParallax,

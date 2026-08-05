@@ -29,6 +29,7 @@ export function CatalogView({ specs }: { specs: MotionSpec[] }) {
   const searchParams = useSearchParamsSafe();
   const category = searchParams.get("category") ?? "all";
   const tag = searchParams.get("tag") ?? "";
+  const view = searchParams.get("view") ?? "all";
   const [query, setQuery] = useState("");
   const [tagsExpanded, setTagsExpanded] = useState(false);
 
@@ -79,8 +80,9 @@ export function CatalogView({ specs }: { specs: MotionSpec[] }) {
   }, [specs, fuse, query, category, tag]);
 
   return (
-    <div className="flex flex-col gap-6 px-6 py-10">
-      <div className="flex flex-col gap-3">
+    <div className="mk-home flex flex-col gap-6 px-4 py-7 md:px-6 md:py-8">
+      <div className="flex flex-col gap-4 border-b border-border pb-5">
+        <div><p className="mb-2 font-mono text-xs uppercase tracking-[0.18em] text-accent">Library / {view}</p><h1 className="text-2xl font-semibold tracking-tight">{view === "all" ? "All Components" : `${view[0].toUpperCase()}${view.slice(1)} Components`}</h1></div>
         <div className="flex flex-wrap items-center gap-2">
           <select
             value={category}
@@ -143,9 +145,9 @@ export function CatalogView({ specs }: { specs: MotionSpec[] }) {
       {filtered.length === 0 ? (
         <p className="text-sm text-muted-foreground">조건에 맞는 컴포넌트가 없습니다.</p>
       ) : (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
           {filtered.map((spec) => (
-            <ComponentCard key={`${spec.category}/${spec.slug}`} spec={spec} />
+            <ComponentCard key={`${spec.category}/${spec.slug}`} spec={spec} gallery />
           ))}
         </div>
       )}

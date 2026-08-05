@@ -8,6 +8,12 @@ export function generateStaticParams() {
   return loadSpecs().map((spec) => ({ category: spec.category, slug: spec.slug }));
 }
 
+// next/og fetches a dynamic subset font per glyph; the Miscellaneous Technical block
+// (⌘ ⌥ ⇧ ⌫ …) has no Google Fonts coverage and 400s, aborting the whole image.
+function stripUnrenderable(text: string): string {
+  return text.replace(/[⌀-⏿]/g, "").replace(/\s{2,}/g, " ").trim();
+}
+
 export default async function OgImage({
   params,
 }: {
@@ -33,13 +39,13 @@ export default async function OgImage({
       >
         <div style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 28, color: "#818cf8" }}>
           <div style={{ width: 14, height: 14, borderRadius: 999, background: "#818cf8" }} />
-          MotionKit
+          Kinetiq
         </div>
         <div style={{ display: "flex", fontSize: 72, fontWeight: 600, marginTop: 32 }}>
-          {spec?.name ?? "Component"}
+          {stripUnrenderable(spec?.name ?? "Component")}
         </div>
         <div style={{ display: "flex", fontSize: 32, color: "#9a9aa2", marginTop: 16 }}>
-          {spec?.description ?? ""}
+          {stripUnrenderable(spec?.description ?? "")}
         </div>
       </div>
     ),
