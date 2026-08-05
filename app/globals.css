@@ -1,12 +1,5 @@
 @import "tailwindcss";
 
-@keyframes emoji-burst-shake {
-  0%, 100% { transform: translateX(0) rotate(0deg); }
-  25% { transform: translateX(-3px) rotate(-1.5deg); }
-  50% { transform: translateX(3px) rotate(1.5deg); }
-  75% { transform: translateX(-1px) rotate(-0.5deg); }
-}
-
 :root {
   --background: #ffffff;
   --foreground: #17171a;

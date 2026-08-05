@@ -21,7 +21,6 @@ import { WorldMapConnections } from "@/registry/data/world-map-connections";
 import { CubeGallery } from "@/registry/interaction/cube-gallery";
 import { CosmicOrb } from "@/registry/interaction/cosmic-orb";
 import { GalleryTunnel } from "@/registry/interaction/gallery-tunnel";
-import { EmojiBurstComponent } from "@/registry/interaction/emojiburst";
 import { FluidGlassButton } from "@/registry/buttons/fluid-glass-button";
 import { CosmicRay } from "@/registry/backgrounds/cosmic-ray";
 import { AuroraMesh } from "@/registry/backgrounds/aurora-mesh";
@@ -179,5 +178,4 @@ export const registryComponents: Record<string, ComponentType<any>> = {
   "interaction/cube-gallery": CubeGallery,
   "interaction/cosmic-orb": CosmicOrb,
   "interaction/gallery-tunnel": GalleryTunnel,
-  "interaction/emojiburst": EmojiBurstComponent,
 };

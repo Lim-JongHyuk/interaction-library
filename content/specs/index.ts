@@ -21,7 +21,6 @@ import worldMapConnections from "./data-world-map-connections";
 import cubeGallery from "./interaction-cube-gallery";
 import cosmicOrb from "./interaction-cosmic-orb";
 import galleryTunnel from "./interaction-gallery-tunnel";
-import emojiburst from "./interaction-emojiburst";
 import fluidGlassButton from "./buttons-fluid-glass-button";
 import cosmicRay from "./backgrounds-cosmic-ray";
 import auroraMesh from "./backgrounds-aurora-mesh";
@@ -112,7 +111,6 @@ export const allSpecs: MotionSpec[] = [
   locationGlobe,
   cosmicOrb,
   galleryTunnel,
-  emojiburst,
   fluidGlassButton,
   cosmicRay,
   auroraMesh,
