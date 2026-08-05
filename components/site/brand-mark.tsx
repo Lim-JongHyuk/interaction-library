@@ -1,5 +1,5 @@
 import { cn } from "@/lib/cn";
 
 export function BrandMark({ className, label = "Kinetiq" }: { className?: string; label?: string }) {
-  return <span className={cn("inline-flex items-center gap-2.5", className)}><svg viewBox="0 0 32 32" aria-hidden="true" className="size-7 shrink-0"><path d="M4.5 5.25h8.25v8.8c0 1.35.9 1.9 1.78.9L21.35 5.25h6.1L17.3 17.8c-5.75 6.4-12.8-1.2-12.8-7.45V5.25Z" fill="#1ed760"/><path d="M4.5 26.75h8.25v-8.8c0-1.35.9-1.9 1.78-.9l6.82 9.7h6.1L17.3 14.2c-5.75-6.4-12.8 1.2-12.8 7.45v5.1Z" fill="#1ed760"/></svg><span className="font-bold tracking-[-0.05em]">{label}</span></span>;
+  return <span className={cn("inline-flex items-center gap-2.5", className)}><svg viewBox="0 0 32 32" aria-hidden="true" className="size-7 shrink-0"><path d="M3.5 4h10v9.65c0 1.15.75 1.7 1.5.8L21.6 4H29L17.2 17.05c-3.05 3.4-7.7 2.55-10.6-.5-2-2.1-3.1-4.65-3.1-7.65V4Z" fill="#1ed760"/><path d="M3.5 28h10v-9.65c0-1.15.75-1.7 1.5-.8L21.6 28H29L17.2 14.95c-3.05-3.4-7.7-2.55-10.6.5-2 2.1-3.1 4.65-3.1 7.65V28Z" fill="#1ed760"/></svg><span className="font-bold tracking-[-0.05em]">{label}</span></span>;
 }
