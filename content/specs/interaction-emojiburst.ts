@@ -1,0 +1,40 @@
+import type { MotionSpec } from "@/lib/spec";
+
+const spec: MotionSpec = {
+  slug: "emojiburst",
+  category: "interaction",
+  name: "Emoji Burst",
+  description: "Launch a burst of custom emojis from a tappable button with gravity-driven motion and a springy shake.",
+  tags: ["emoji", "particles", "button", "physics", "burst"],
+  trigger: "click",
+  params: [
+    { key: "label", label: "Label", control: "text", default: "Click Here" },
+    { key: "paddingX", label: "Padding X", control: "slider", min: 4, max: 64, step: 1, default: 24, unit: "px" },
+    { key: "paddingY", label: "Padding Y", control: "slider", min: 4, max: 40, step: 1, default: 18, unit: "px" },
+    { key: "objectColor", label: "Object", control: "color", default: "#FFFFFF" },
+    { key: "textColor", label: "Label Color", control: "color", default: "#111111" },
+    { key: "radius", label: "Rounded", control: "slider", min: 0, max: 40, step: 1, default: 0, unit: "px" },
+    { key: "shakeIntensity", label: "Shake", control: "slider", min: 0, max: 40, step: 1, default: 0, unit: "px" },
+    { key: "shadowEnabled", label: "Shadow", control: "toggle", default: false },
+    { key: "shadowIntensity", label: "Shadow Size", control: "slider", min: 0, max: 20, step: 1, default: 5 },
+    { key: "shadowOpacity", label: "Shadow Opacity", control: "slider", min: 0, max: 100, step: 1, default: 50 },
+    { key: "shadowColor", label: "Shadow Color", control: "color", default: "#000000" },
+    { key: "emojis", label: "Emojis", control: "text", default: "🎉,✨,😄,🔥,💥,⭐,💖,🤩,👍,🥳,🎊,😎" },
+    { key: "emojiSize", label: "Emoji Size", control: "slider", min: 10, max: 48, step: 1, default: 20, unit: "px" },
+    { key: "burstCount", label: "Count", control: "slider", min: 1, max: 40, step: 1, default: 16 },
+    { key: "power", label: "Power", control: "slider", min: 1, max: 24, step: 1, default: 12 },
+    { key: "spread", label: "Spread", control: "slider", min: 0, max: 180, step: 1, default: 55, unit: "°" },
+    { key: "gravity", label: "Gravity", control: "slider", min: 0, max: 10, step: 1, default: 4 },
+    { key: "autoBurst", label: "Auto Burst", control: "toggle", default: true },
+    { key: "autoBurstInterval", label: "Interval", control: "slider", min: 0.4, max: 6, step: 0.1, default: 2.2, unit: "s" },
+  ],
+  dependencies: [],
+  variants: ["react-ts-tw"],
+  a11y: { reducedMotion: "The button remains usable without requiring animation; emoji motion can be disabled by turning off Auto Burst." },
+  install: { registryPath: "r/interaction/emojiburst.json" },
+  demo: {},
+  status: "stable",
+  createdAt: "2026-08-05",
+};
+
+export default spec;
