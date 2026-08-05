@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useMemo, useRef, type CSSProperties } from "react";
 
 export interface EmojiBurstProps {
   label?: string;
@@ -76,7 +76,7 @@ export default function EmojiBurst({
   const particlesRef = useRef<Particle[]>([]);
   const frameRef = useRef<number | null>(null);
   const originRef = useRef({ x: 0, y: 0 });
-  const [shakeKey, setShakeKey] = useState(0);
+  const buttonRef = useRef<HTMLButtonElement>(null);
   const emojiList = useMemo(() => emojis.split(",").map((emoji) => emoji.trim()).filter(Boolean), [emojis]);
 
   const burst = useCallback(() => {
@@ -100,8 +100,25 @@ export default function EmojiBurst({
         size: Math.max(8, emojiSize) * (0.82 + Math.random() * 0.42),
       });
     }
-    setShakeKey((key) => key + 1);
-  }, [burstCount, emojiList, emojiSize, power, spread]);
+    if (particlesRef.current.length > 180) {
+      particlesRef.current.splice(0, particlesRef.current.length - 180);
+    }
+    const button = buttonRef.current;
+    if (button && shakeIntensity > 0 && typeof button.animate === "function") {
+      button.getAnimations().forEach((animation) => animation.cancel());
+      const distance = Math.min(9, shakeIntensity / 3);
+      button.animate(
+        [
+          { transform: "translate3d(0, 0, 0) rotate(0deg)" },
+          { transform: `translate3d(${-distance}px, 0, 0) rotate(-1.4deg)` },
+          { transform: `translate3d(${distance}px, 0, 0) rotate(1.4deg)` },
+          { transform: `translate3d(${-distance * 0.4}px, 0, 0) rotate(-0.4deg)` },
+          { transform: "translate3d(0, 0, 0) rotate(0deg)" },
+        ],
+        { duration: Math.max(140, shakeIntensity * 28 + 120), easing: "cubic-bezier(.22,.8,.32,1)" },
+      );
+    }
+  }, [burstCount, emojiList, emojiSize, power, shakeIntensity, spread]);
 
   useEffect(() => {
     const host = hostRef.current;
@@ -135,6 +152,10 @@ export default function EmojiBurst({
       const dt = Math.min(0.04, (now - last) / 1000);
       last = now;
       const gravityForce = Math.max(0, gravity) * 45;
+      if (particlesRef.current.length === 0) {
+        frameRef.current = requestAnimationFrame(tick);
+        return;
+      }
       context.clearRect(0, 0, width, height);
       particlesRef.current = particlesRef.current.filter((particle) => {
         particle.age += dt;
@@ -181,11 +202,11 @@ export default function EmojiBurst({
     <div ref={hostRef} className="relative inline-flex items-center justify-center" style={style}>
       <canvas ref={canvasRef} className="pointer-events-none absolute -left-[260px] -top-[320px] z-10" aria-hidden="true" />
       <button
-        key={shakeKey}
+        ref={buttonRef}
         type="button"
         onClick={burst}
         aria-label={label}
-        className="relative z-20 cursor-pointer border-0 transition-transform active:scale-[0.97] motion-safe:animate-[emoji-burst-shake_420ms_ease-out]"
+        className="relative z-20 cursor-pointer border-0 transition-transform active:scale-[0.97]"
         style={{
           padding: `${paddingY}px ${paddingX}px`,
           borderRadius: `${Math.max(0, radius)}px`,
@@ -193,8 +214,6 @@ export default function EmojiBurst({
           color: textColor,
           boxShadow: shadow,
           ...font,
-          animationDuration: `${Math.max(80, shakeIntensity * 35 + 80)}ms`,
-          transform: shakeIntensity > 0 ? `translateX(${Math.min(8, shakeIntensity / 4)}px)` : undefined,
         }}
       >
         {label}
