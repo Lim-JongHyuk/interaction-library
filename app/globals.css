@@ -7,8 +7,8 @@
   --muted-foreground: #6b6b72;
   --border: #e4e4e7;
   --card: #ffffff;
-  --accent: #ff5a00;
-  --accent-foreground: #1a0900;
+  --accent: #1ed760;
+  --accent-foreground: #0b1510;
 }
 
 :root[data-theme="dark"],
@@ -19,8 +19,8 @@
   --muted-foreground: #aaa9ad;
   --border: #353537;
   --card: #242426;
-  --accent: #ff5a00;
-  --accent-foreground: #1a0900;
+  --accent: #1ed760;
+  --accent-foreground: #0b1510;
 }
 
 @theme inline {
