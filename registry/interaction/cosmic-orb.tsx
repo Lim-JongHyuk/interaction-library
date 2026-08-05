@@ -19,12 +19,21 @@ export interface CosmicOrbProps {
   lensColor?: string;
 }
 
-type Star = { x: number; y: number; radius: number; seed: number };
+type Star = { x: number; y: number; z: number; radius: number; seed: number; warmth: number };
 const TAU = Math.PI * 2;
-const stars: Star[] = Array.from({ length: 210 }, (_, index) => {
-  const seed = (Math.sin(index * 95.31) * 43758.5453) % 1;
-  const unit = Math.abs(seed);
-  return { x: Math.abs(Math.sin(index * 15.91)) * 2 - 1, y: Math.abs(Math.sin(index * 41.23)) * 2 - 1, radius: 0.25 + unit * 1.65, seed: unit };
+const stars: Star[] = Array.from({ length: 460 }, (_, index) => {
+  const seed = Math.abs((Math.sin(index * 95.31) * 43758.5453) % 1);
+  const y = 1 - 2 * ((index + 0.5) / 460);
+  const ring = Math.sqrt(Math.max(0, 1 - y * y));
+  const angle = index * 2.3999632297 + seed * 0.7;
+  return {
+    x: Math.cos(angle) * ring,
+    y,
+    z: Math.sin(angle) * ring,
+    radius: 0.22 + Math.pow(seed, 3) * 2.3,
+    seed,
+    warmth: Math.abs((Math.sin(index * 17.23) * 43758.5453) % 1),
+  };
 });
 
 export function CosmicOrb({ size = 340, archetype = "auto", background = "#000000", colorA = "#65d9ff", colorB = "#9f61ff", colorC = "#fb63be", starColor = "#ffffff", speed = 50, spin = 50, lens = true, lensAmount = 45, lensColor = "#ffffff" }: CosmicOrbProps) {
@@ -83,39 +92,55 @@ export function CosmicOrb({ size = 340, archetype = "auto", background = "#00000
       context.fillStyle = base;
       context.fillRect(cx - radius, cy - radius, radius * 2, radius * 2);
 
-      const rotation = time * (0.21 + cfg.spin / 210);
-      // Soft galactic dust sits behind the stars. Blurred, uneven arcs give the orb its glassy depth.
+      const rotation = time * (0.16 + cfg.spin / 260);
+      // Layered, blurred dust clouds create a volumetric galactic core instead of a flat gradient.
       context.globalCompositeOperation = "screen";
-      const clouds = archetype === "deep" ? 4 : archetype === "core" ? 8 : 6;
+      const clouds = archetype === "deep" ? 7 : archetype === "core" ? 13 : 10;
       for (let index = 0; index < clouds; index += 1) {
-        const angle = rotation * (index % 2 ? -0.72 : 0.9) + index * 1.74;
-        const x = cx + Math.cos(angle) * radius * (0.18 + (index % 3) * 0.14);
-        const y = cy + Math.sin(angle * 1.28) * radius * (0.22 + (index % 2) * 0.2);
+        const orbit = rotation * (index % 2 ? -0.36 : 0.52) + index * 1.53;
+        const x = cx + Math.cos(orbit) * radius * (0.1 + (index % 4) * 0.16);
+        const y = cy + Math.sin(orbit * 1.7) * radius * (0.14 + (index % 3) * 0.14);
         const tint = index % 3 === 0 ? cfg.colorA : index % 3 === 1 ? cfg.colorB : cfg.colorC;
-        const cloud = context.createRadialGradient(x, y, 0, x, y, radius * (0.32 + (index % 2) * 0.16));
-        cloud.addColorStop(0, `${tint}${archetype === "deep" ? "30" : "50"}`);
-        cloud.addColorStop(0.36, `${tint}20`);
+        const cloud = context.createRadialGradient(x, y, 0, x, y, radius * (0.24 + (index % 3) * 0.12));
+        cloud.addColorStop(0, `${tint}${archetype === "deep" ? "24" : "55"}`);
+        cloud.addColorStop(0.22, `${tint}32`);
+        cloud.addColorStop(0.58, `${tint}10`);
         cloud.addColorStop(1, "transparent");
-        context.filter = `blur(${Math.max(5, radius * 0.075)}px)`;
+        context.filter = `blur(${Math.max(4, radius * 0.06)}px)`;
         context.fillStyle = cloud;
         context.beginPath();
-        context.ellipse(x, y, radius * (0.34 + (index % 2) * 0.13), radius * 0.08, angle, 0, TAU);
+        context.ellipse(x, y, radius * (0.22 + (index % 3) * 0.12), radius * (0.06 + (index % 2) * 0.035), orbit, 0, TAU);
         context.fill();
       }
       context.filter = "none";
+
+      // Project deterministic 3D stars onto the visible hemisphere; depth controls scale and glow.
       for (const star of stars) {
-        const wave = Math.sin(star.seed * 30 + time * (1.1 + star.seed * 2));
-        const angle = Math.atan2(star.y, star.x) + rotation * (0.4 + star.seed);
-        const distance = Math.hypot(star.x, star.y) * radius * (0.74 + wave * 0.035);
-        if (distance > radius * 0.96) continue;
-        const x = cx + Math.cos(angle) * distance;
-        const y = cy + Math.sin(angle) * distance * 0.91;
-        const alpha = 0.22 + (wave + 1) * 0.16 + (1 - distance / radius) * 0.3;
-        context.fillStyle = cfg.starColor;
+        const c = Math.cos(rotation * (0.45 + star.seed * 0.3));
+        const s = Math.sin(rotation * (0.45 + star.seed * 0.3));
+        const x3 = star.x * c - star.z * s;
+        const z3 = star.x * s + star.z * c;
+        const depth = z3 * 0.5 + 0.5;
+        if (z3 < -0.08) continue;
+        const x = cx + x3 * radius * 0.9;
+        const y = cy + star.y * radius * 0.9;
+        const wave = 0.72 + 0.28 * Math.sin(star.seed * 54 + time * (0.7 + star.seed * 1.8));
+        const alpha = (0.28 + depth * 0.62) * wave;
+        const size = star.radius * (0.48 + depth * 0.95);
+        const tint = star.warmth < 0.16 ? "#b8d8ff" : star.warmth > 0.86 ? "#ffe1bd" : cfg.starColor;
+        context.fillStyle = tint;
         context.globalAlpha = alpha;
         context.beginPath();
-        context.arc(x, y, star.radius * (0.65 + (1 - distance / radius)), 0, TAU);
+        context.arc(x, y, size, 0, TAU);
         context.fill();
+        if (star.radius > 1.45 && depth > 0.42) {
+          context.globalAlpha = alpha * 0.18;
+          context.filter = `blur(${Math.max(2, size * 2.8)}px)`;
+          context.beginPath();
+          context.arc(x, y, size * 2.4, 0, TAU);
+          context.fill();
+          context.filter = "none";
+        }
       }
       context.globalAlpha = 1;
 
@@ -133,6 +158,24 @@ export function CosmicOrb({ size = 340, archetype = "auto", background = "#00000
         context.ellipse(cx + Math.sin(angle * 1.7) * radius * 0.1, cy + Math.cos(angle * 1.3) * radius * 0.08, radius * (0.45 + (index % 2) * 0.22), radius * (0.12 + (index % 3) * 0.035), angle, 0, TAU);
         context.stroke();
       }
+
+      // A soft terminator and a cool atmospheric veil make the sphere read as a lit object in space.
+      context.globalCompositeOperation = "multiply";
+      const shadow = context.createRadialGradient(cx + radius * 0.48, cy - radius * 0.36, radius * 0.04, cx, cy, radius * 1.08);
+      shadow.addColorStop(0, "rgba(0,0,8,0)");
+      shadow.addColorStop(0.58, "rgba(0,0,7,0.04)");
+      shadow.addColorStop(0.9, "rgba(0,0,10,0.46)");
+      shadow.addColorStop(1, "rgba(0,0,0,0.92)");
+      context.fillStyle = shadow;
+      context.fillRect(cx - radius, cy - radius, radius * 2, radius * 2);
+      context.globalCompositeOperation = "screen";
+      const atmosphere = context.createRadialGradient(cx - radius * 0.34, cy - radius * 0.38, radius * 0.72, cx, cy, radius * 1.04);
+      atmosphere.addColorStop(0, "transparent");
+      atmosphere.addColorStop(0.82, `${cfg.colorA}08`);
+      atmosphere.addColorStop(0.97, `${cfg.colorA}28`);
+      atmosphere.addColorStop(1, "transparent");
+      context.fillStyle = atmosphere;
+      context.fillRect(cx - radius, cy - radius, radius * 2, radius * 2);
 
       const flare = context.createRadialGradient(cx + Math.sin(time * 0.7) * radius * 0.52, cy - radius * 0.62, 0, cx, cy, radius * 1.1);
       flare.addColorStop(0, `${cfg.lensColor}cc`);
