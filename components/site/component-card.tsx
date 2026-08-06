@@ -43,6 +43,10 @@ export function ComponentCard({ spec, gallery = false }: { spec: MotionSpec; gal
           <LazyPreview
             className="absolute inset-0 flex items-center justify-center p-3 [&>*]:max-h-full [&>*]:max-w-full"
             poster={<span className="text-sm text-muted-foreground">{posterText}</span>}
+            // Gallery cards only run while they are actually on screen. This
+            // keeps the first viewport to the visible 6–8 previews and avoids
+            // starting the next row's Canvas/WebGL loops ahead of time.
+            rootMargin={gallery ? "0px" : "200px"}
           >
             {Preview ? (
               <Preview {...spec.demo} {...defaultParamValues(spec)} />
