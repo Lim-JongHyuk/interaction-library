@@ -44,6 +44,42 @@ body {
 
 .mk-home { background: #202022; }
 
+.orbit-home {
+  background: #1f1f21;
+}
+
+.orbit-hero {
+  background: #19191b;
+  isolation: isolate;
+}
+
+.orbit-hero-grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.4;
+  background-image: linear-gradient(to right, color-mix(in srgb, var(--border) 70%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in srgb, var(--border) 70%, transparent) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to right, black, transparent 76%);
+}
+
+.orbit-signal {
+  position: absolute;
+  width: min(56vw, 720px);
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in srgb, var(--accent) 52%, transparent);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.orbit-signal-a { right: -23%; top: -42%; }
+.orbit-signal-b { right: -2%; top: 36%; width: min(34vw, 420px); border-color: color-mix(in srgb, var(--accent) 26%, transparent); }
+
+@media (max-width: 640px) {
+  .orbit-hero-grid { background-size: 28px 28px; mask-image: linear-gradient(to bottom, black, transparent 82%); }
+  .orbit-signal-a { right: -56%; top: -15%; width: 120vw; }
+  .orbit-signal-b { right: -25%; top: 58%; width: 70vw; }
+}
+
 * {
   border-color: var(--border);
 }

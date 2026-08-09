@@ -24,7 +24,6 @@ import galleryTunnel from "./interaction-gallery-tunnel";
 import blackHole from "./interaction-blackhole";
 import fluidGlassButton from "./buttons-fluid-glass-button";
 import cosmicRay from "./backgrounds-cosmic-ray";
-import auroraMesh from "./backgrounds-aurora-mesh";
 import floatingDock from "./navigation-floating-dock";
 import floatingLabelInput from "./forms-floating-label-input";
 import cursorSpotlight from "./utilities-cursor-spotlight";
@@ -32,16 +31,15 @@ import bentoGrid from "./layout-bento-grid";
 import animatedTagList from "./cms-animated-tag-list";
 import browserFrame from "./embeds-browser-frame";
 import coverflowCarousel from "./carousels-coverflow-carousel";
-import pixelHero from "./sections-pixel-hero";
 import flipBook from "./carousels-flip-book";
 import mediaHoverList from "./cms-media-hover-list";
 import maskHoverReveal from "./utilities-mask-hover-reveal";
 import cursorPet from "./interaction-cursor-pet";
-import liquidGradient from "./backgrounds-liquid-gradient";
+import iridescence from "./backgrounds-iridescence";
 import glassPanels from "./layout-glass-panels";
 import gravityGallery from "./interaction-gravity-gallery";
 import spatialCarousel from "./carousels-spatial-carousel";
-import kineticLines from "./backgrounds-kinetic-lines";
+import pixelSnow from "./backgrounds-pixel-snow";
 import thermalHeatmap from "./data-thermal-heatmap";
 import particleEngine from "./backgrounds-particle-engine";
 import fluidSimulation from "./backgrounds-fluid-simulation";
@@ -84,8 +82,10 @@ import heroParallax from "./sections-hero-parallax";
 import scrollTimeline from "./sections-scroll-timeline";
 import testimonialStack from "./carousels-testimonial-stack";
 import expandingPanels from "./cms-expanding-panels";
-import lampGlow from "./backgrounds-lamp-glow";
-import magneticDots from "./interaction-magnetic-dots";
+import prism from "./backgrounds-prism";
+import galaxy from "./backgrounds-galaxy";
+import faultyTerminal from "./backgrounds-faulty-terminal";
+import dotField from "./interaction-dot-field";
 import rippleDistortion from "./interaction-ripple-distortion";
 import swarmCursor from "./interaction-swarm-cursor";
 import halftoneReveal from "./interaction-halftone-reveal";
@@ -93,6 +93,7 @@ import antigravity from "./interaction-antigravity";
 import fluidGlass from "./interaction-fluid-glass";
 import moltenMetal from "./backgrounds-molten-metal";
 import webThreads from "./backgrounds-web-threads";
+import pixelBlast from "./backgrounds-pixel-blast";
 
 /**
  * 명시적 배럴. content/specs/*.ts 신규 파일 추가 시 여기에 함께 등록해야
@@ -122,7 +123,6 @@ export const allSpecs: MotionSpec[] = [
   blackHole,
   fluidGlassButton,
   cosmicRay,
-  auroraMesh,
   floatingDock,
   floatingLabelInput,
   cursorSpotlight,
@@ -130,16 +130,15 @@ export const allSpecs: MotionSpec[] = [
   animatedTagList,
   browserFrame,
   coverflowCarousel,
-  pixelHero,
   flipBook,
   mediaHoverList,
   maskHoverReveal,
   cursorPet,
-  liquidGradient,
+  iridescence,
   glassPanels,
   gravityGallery,
   spatialCarousel,
-  kineticLines,
+  pixelSnow,
   thermalHeatmap,
   particleEngine,
   fluidSimulation,
@@ -182,8 +181,10 @@ export const allSpecs: MotionSpec[] = [
   scrollTimeline,
   testimonialStack,
   expandingPanels,
-  lampGlow,
-  magneticDots,
+  prism,
+  galaxy,
+  faultyTerminal,
+  dotField,
   rippleDistortion,
   swarmCursor,
   halftoneReveal,
@@ -191,6 +192,7 @@ export const allSpecs: MotionSpec[] = [
   fluidGlass,
   moltenMetal,
   webThreads,
+  pixelBlast,
   worldMapConnections,
   cubeGallery,
 ];

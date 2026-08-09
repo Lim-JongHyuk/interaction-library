@@ -1,6 +1,6 @@
 "use client"
 import * as React from "react"
-import { useRef, useEffect, useCallback, useState } from "react"
+import { useRef, useEffect, useCallback, useMemo, useState } from "react"
 
 /**
  * BlackHole - A premium 3D black hole accretion disk component.
@@ -126,7 +126,7 @@ export default function BlackHole(props: Props) {
     // Resolve outer radius % → world px against the live canvas size
     // 0% sits on the center void, 100% reaches the canvas edge (full width)
     const outerRadFromSize = useCallback(
-        (w: number, _h: number) => {
+        (w: number) => {
             const maxR = w / 2 // 100% reaches the canvas edge → full width
             const pct = Math.max(0, Math.min(100, outerRadius)) / 100
             return voidRadius + pct * (maxR - voidRadius)
@@ -140,8 +140,21 @@ export default function BlackHole(props: Props) {
     const particlesRef = useRef<Particle[]>([])
     const animRef = useRef<number>(0)
     const sizeRef = useRef({ w: 600, h: 600 })
+    // Keep a valid, stable palette for the animation loop. A consumer can pass
+    // an empty palette while editing controls, which previously produced an
+    // undefined canvas fillStyle and broke the frame.
+    const colorPalette = useMemo(() => {
+        const palette = colors.filter(Boolean)
+        return palette.length ? palette : DEFAULTS.colors
+    }, [colors])
+    const colorPaletteKey = colorPalette.join("\u0001")
+    const colorPaletteRef = useRef(colorPalette)
     // Bumped whenever the real canvas size changes, so particles re-seed in place
     const [sizeVersion, setSizeVersion] = useState(0)
+
+    useEffect(() => {
+        colorPaletteRef.current = colorPalette
+    }, [colorPalette])
 
     // ─── Initialize Particles ────────────────────────────────
 
@@ -174,17 +187,18 @@ export default function BlackHole(props: Props) {
     // Seed particles already in place — on mount, when params change, and
     // (via sizeVersion) as soon as the true canvas size is known
     useEffect(() => {
-        const { w, h } = sizeRef.current
+        const { w } = sizeRef.current
         initParticles(
             particleCount,
             voidRadius,
-            outerRadFromSize(w, h),
-            colors.length
+            outerRadFromSize(w),
+            colorPalette.length
         )
     }, [
         particleCount,
         voidRadius,
-        colors.length,
+        colorPalette.length,
+        colorPaletteKey,
         initParticles,
         outerRadFromSize,
         sizeVersion,
@@ -262,7 +276,7 @@ export default function BlackHole(props: Props) {
             fgCtx.globalCompositeOperation = "source-over"
 
             // Outer disk radius in world px, resolved against the live canvas size
-            const outerRad = outerRadFromSize(w, h)
+            const outerRad = outerRadFromSize(w)
 
             // Void position anchored top-left: 0% = left/top edge, 100% = right/bottom
             const voidCx = (voidX / 100) * w
@@ -351,7 +365,8 @@ export default function BlackHole(props: Props) {
                     1 - ((z3d + outerRad) / (2 * outerRad)) * 0.45
                 )
 
-                const color = colors[pt.colorIdx % colors.length]
+                const palette = colorPaletteRef.current
+                const color = palette[pt.colorIdx % palette.length]
 
                 const projectedPt: ProjectedPt = {
                     x: px,
@@ -498,7 +513,7 @@ export default function BlackHole(props: Props) {
         showCenter,
         particleCount,
         particleSize,
-        JSON.stringify(colors),
+        colorPaletteKey,
         outerRadFromSize,
         tilt,
         tiltSideway,

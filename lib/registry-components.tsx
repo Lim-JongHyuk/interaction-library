@@ -24,7 +24,6 @@ import { GalleryTunnel } from "@/registry/interaction/gallery-tunnel";
 import { BlackHole } from "@/registry/interaction/blackhole";
 import { FluidGlassButton } from "@/registry/buttons/fluid-glass-button";
 import { CosmicRay } from "@/registry/backgrounds/cosmic-ray";
-import { AuroraMesh } from "@/registry/backgrounds/aurora-mesh";
 import { FloatingDock } from "@/registry/navigation/floating-dock";
 import { FloatingLabelInput } from "@/registry/forms/floating-label-input";
 import { CursorSpotlight } from "@/registry/utilities/cursor-spotlight";
@@ -32,16 +31,15 @@ import { BentoGrid } from "@/registry/layout/bento-grid";
 import { AnimatedTagList } from "@/registry/cms/animated-tag-list";
 import { BrowserFrame } from "@/registry/embeds/browser-frame";
 import { CoverflowCarousel } from "@/registry/carousels/coverflow-carousel";
-import { PixelHero } from "@/registry/sections/pixel-hero";
 import { FlipBook } from "@/registry/carousels/flip-book";
 import { MediaHoverList } from "@/registry/cms/media-hover-list";
 import { MaskHoverReveal } from "@/registry/utilities/mask-hover-reveal";
 import { CursorPet } from "@/registry/interaction/cursor-pet";
-import { LiquidGradient } from "@/registry/backgrounds/liquid-gradient";
+import { Iridescence } from "@/registry/backgrounds/iridescence";
 import { GlassPanels } from "@/registry/layout/glass-panels";
 import { GravityGallery } from "@/registry/interaction/gravity-gallery";
 import { SpatialCarousel } from "@/registry/carousels/spatial-carousel";
-import { KineticLines } from "@/registry/backgrounds/kinetic-lines";
+import { PixelSnow } from "@/registry/backgrounds/pixel-snow";
 import { ThermalHeatmap } from "@/registry/data/thermal-heatmap";
 import { ParticleEngine } from "@/registry/backgrounds/particle-engine";
 import { FluidSimulation } from "@/registry/backgrounds/fluid-simulation";
@@ -84,8 +82,10 @@ import { HeroParallax } from "@/registry/sections/hero-parallax";
 import { ScrollTimeline } from "@/registry/sections/scroll-timeline";
 import { TestimonialStack } from "@/registry/carousels/testimonial-stack";
 import { ExpandingPanels } from "@/registry/cms/expanding-panels";
-import { LampGlow } from "@/registry/backgrounds/lamp-glow";
-import { MagneticDotGrid } from "@/registry/interaction/magnetic-dots";
+import { Prism } from "@/registry/backgrounds/prism";
+import { Galaxy } from "@/registry/backgrounds/galaxy";
+import { FaultyTerminal } from "@/registry/backgrounds/faulty-terminal";
+import { DotField } from "@/registry/interaction/dot-field";
 import { RippleDistortion } from "@/registry/interaction/ripple-distortion";
 import { SwarmCursor } from "@/registry/interaction/swarm-cursor";
 import { HalftoneReveal } from "@/registry/interaction/halftone-reveal";
@@ -93,6 +93,7 @@ import { Antigravity } from "@/registry/interaction/antigravity";
 import { FluidGlass } from "@/registry/interaction/fluid-glass";
 import { MoltenMetal } from "@/registry/backgrounds/molten-metal";
 import { WebThreads } from "@/registry/backgrounds/web-threads";
+import { PixelBlast } from "@/registry/backgrounds/pixel-blast";
 
 /**
  * 명시적 배럴. registry/**.tsx 신규 컴포넌트 추가 시 여기에 함께 등록해야
@@ -120,7 +121,6 @@ export const registryComponents: Record<string, ComponentType<any>> = {
   "data/location-globe": LocationGlobe,
   "buttons/fluid-glass-button": FluidGlassButton,
   "backgrounds/cosmic-ray": CosmicRay,
-  "backgrounds/aurora-mesh": AuroraMesh,
   "navigation/floating-dock": FloatingDock,
   "forms/floating-label-input": FloatingLabelInput,
   "utilities/cursor-spotlight": CursorSpotlight,
@@ -128,16 +128,15 @@ export const registryComponents: Record<string, ComponentType<any>> = {
   "cms/animated-tag-list": AnimatedTagList,
   "embeds/browser-frame": BrowserFrame,
   "carousels/coverflow-carousel": CoverflowCarousel,
-  "sections/pixel-hero": PixelHero,
   "carousels/flip-book": FlipBook,
   "cms/media-hover-list": MediaHoverList,
   "utilities/mask-hover-reveal": MaskHoverReveal,
   "interaction/cursor-pet": CursorPet,
-  "backgrounds/liquid-gradient": LiquidGradient,
+  "backgrounds/iridescence": Iridescence,
   "layout/glass-panels": GlassPanels,
   "interaction/gravity-gallery": GravityGallery,
   "carousels/spatial-carousel": SpatialCarousel,
-  "backgrounds/kinetic-lines": KineticLines,
+  "backgrounds/pixel-snow": PixelSnow,
   "data/thermal-heatmap": ThermalHeatmap,
   "backgrounds/particle-engine": ParticleEngine,
   "backgrounds/fluid-simulation": FluidSimulation,
@@ -180,8 +179,10 @@ export const registryComponents: Record<string, ComponentType<any>> = {
   "sections/scroll-timeline": ScrollTimeline,
   "carousels/testimonial-stack": TestimonialStack,
   "cms/expanding-panels": ExpandingPanels,
-  "backgrounds/lamp-glow": LampGlow,
-  "interaction/magnetic-dots": MagneticDotGrid,
+  "backgrounds/prism": Prism,
+  "backgrounds/galaxy": Galaxy,
+  "backgrounds/faulty-terminal": FaultyTerminal,
+  "interaction/dot-field": DotField,
   "interaction/ripple-distortion": RippleDistortion,
   "interaction/swarm-cursor": SwarmCursor,
   "interaction/halftone-reveal": HalftoneReveal,
@@ -189,6 +190,7 @@ export const registryComponents: Record<string, ComponentType<any>> = {
   "interaction/fluid-glass": FluidGlass,
   "backgrounds/molten-metal": MoltenMetal,
   "backgrounds/web-threads": WebThreads,
+  "backgrounds/pixel-blast": PixelBlast,
   "data/world-map-connections": WorldMapConnections,
   "interaction/cube-gallery": CubeGallery,
   "interaction/cosmic-orb": CosmicOrb,
