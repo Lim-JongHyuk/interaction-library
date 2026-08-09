@@ -39,7 +39,7 @@ export default async function OgImage({
       >
         <div style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 28, color: "#818cf8" }}>
           <div style={{ width: 14, height: 14, borderRadius: 999, background: "#818cf8" }} />
-          Kinetiq
+          ORBIT
         </div>
         <div style={{ display: "flex", fontSize: 72, fontWeight: 600, marginTop: 32 }}>
           {stripUnrenderable(spec?.name ?? "Component")}

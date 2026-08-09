@@ -86,6 +86,13 @@ import { TestimonialStack } from "@/registry/carousels/testimonial-stack";
 import { ExpandingPanels } from "@/registry/cms/expanding-panels";
 import { LampGlow } from "@/registry/backgrounds/lamp-glow";
 import { MagneticDotGrid } from "@/registry/interaction/magnetic-dots";
+import { RippleDistortion } from "@/registry/interaction/ripple-distortion";
+import { SwarmCursor } from "@/registry/interaction/swarm-cursor";
+import { HalftoneReveal } from "@/registry/interaction/halftone-reveal";
+import { Antigravity } from "@/registry/interaction/antigravity";
+import { FluidGlass } from "@/registry/interaction/fluid-glass";
+import { MoltenMetal } from "@/registry/backgrounds/molten-metal";
+import { WebThreads } from "@/registry/backgrounds/web-threads";
 
 /**
  * 명시적 배럴. registry/**.tsx 신규 컴포넌트 추가 시 여기에 함께 등록해야
@@ -175,6 +182,13 @@ export const registryComponents: Record<string, ComponentType<any>> = {
   "cms/expanding-panels": ExpandingPanels,
   "backgrounds/lamp-glow": LampGlow,
   "interaction/magnetic-dots": MagneticDotGrid,
+  "interaction/ripple-distortion": RippleDistortion,
+  "interaction/swarm-cursor": SwarmCursor,
+  "interaction/halftone-reveal": HalftoneReveal,
+  "interaction/antigravity": Antigravity,
+  "interaction/fluid-glass": FluidGlass,
+  "backgrounds/molten-metal": MoltenMetal,
+  "backgrounds/web-threads": WebThreads,
   "data/world-map-connections": WorldMapConnections,
   "interaction/cube-gallery": CubeGallery,
   "interaction/cosmic-orb": CosmicOrb,

@@ -25,7 +25,7 @@ export default function Home() {
       </div>
 
       <p className="mb-6 inline-flex border border-border bg-muted px-3 py-2 font-mono text-xs text-foreground/90">
-        Kinetiq is in beta. Motion, precisely tuned.
+        ORBIT is in beta. Motion components in orbit.
       </p>
 
       <section aria-label="Component gallery" className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">

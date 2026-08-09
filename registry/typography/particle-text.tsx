@@ -1,7 +1,7 @@
 "use client";
 
 // deps: three
-import { useEffect, useRef } from "react";
+import { createElement, useEffect, useRef } from "react";
 import * as THREE from "three";
 
 export interface ParticleTextProps {
@@ -342,12 +342,10 @@ export function ParticleText({
     };
   }, [text, font, density, padding]);
 
-  const Tag = tag as keyof React.JSX.IntrinsicElements;
-
-  return (
-    <Tag className="relative m-0 block h-full min-h-64 w-full overflow-hidden rounded-xl bg-black font-normal">
-      <span className="sr-only">{text}</span>
-      <div ref={containerRef} className="absolute inset-0" />
-    </Tag>
+  return createElement(
+    tag,
+    { className: "relative m-0 block h-full min-h-64 w-full overflow-hidden rounded-xl bg-black font-normal" },
+    <span className="sr-only">{text}</span>,
+    <div ref={containerRef} className="absolute inset-0" />
   );
 }
