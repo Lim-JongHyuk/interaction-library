@@ -30,7 +30,7 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
 }
 
 function Brand({ onNavigate }: { onNavigate?: () => void }) {
-  return <Link href="/" onClick={onNavigate} className="mb-5 flex items-center gap-2.5 px-0.5 text-lg"><BrandMark label="Kinetiq" /><span className="border border-border px-1 py-0.5 text-[10px] font-normal text-muted-foreground">BETA</span></Link>;
+  return <Link href="/" onClick={onNavigate} className="mb-5 flex items-center gap-2.5 px-0.5 text-lg"><BrandMark label="ORBIT" /><span className="border border-border px-1 py-0.5 text-[10px] font-normal text-muted-foreground">BETA</span></Link>;
 }
 
 function ComponentBrowser({ specs, category, selectedSlug, onNavigate }: { specs: ReturnType<typeof loadSpecs>; category: string; selectedSlug: string; onNavigate?: () => void }) {
@@ -49,7 +49,7 @@ function SidebarItem({ spec, selected, grid, onNavigate }: { spec: ReturnType<ty
   const Preview = registryComponents[`${spec.category}/${spec.slug}`];
   const href = `/docs/${spec.category}/${spec.slug}`;
   if (!grid) return <Link href={href} onClick={onNavigate} className={cn("block border-l-2 px-3 py-2.5 transition-colors", selected ? "border-accent bg-muted text-foreground" : "border-transparent text-muted-foreground hover:bg-muted hover:text-foreground")}>{spec.name}</Link>;
-  return <Link href={href} onClick={onNavigate} className={cn("group overflow-hidden border bg-black transition-colors", selected ? "border-accent" : "border-border hover:border-muted-foreground")}><div className="pointer-events-none relative aspect-[1.45] overflow-hidden">{Preview ? <LazyPreview className="absolute inset-0 flex items-center justify-center p-1 [&>*]:max-h-full [&>*]:max-w-full" poster={<span className="text-[9px] text-muted-foreground">Preview</span>}>{<Preview {...spec.demo} {...defaultParamValues(spec)} />}</LazyPreview> : null}</div><span className={cn("block truncate px-2 py-2 text-xs", selected ? "bg-muted text-foreground" : "text-muted-foreground")}>{spec.name}</span></Link>;
+  return <Link href={href} onClick={onNavigate} className={cn("group overflow-hidden border bg-black transition-colors", selected ? "border-accent" : "border-border hover:border-muted-foreground")}><div className="pointer-events-none relative aspect-[1.45] overflow-hidden">{Preview ? <LazyPreview rootMargin="0px" className="absolute inset-0 flex items-center justify-center p-1 [&>*]:max-h-full [&>*]:max-w-full" poster={<span className="text-[9px] text-muted-foreground">Preview</span>}>{<Preview {...spec.demo} {...defaultParamValues(spec)} />}</LazyPreview> : null}</div><span className={cn("block truncate px-2 py-2 text-xs", selected ? "bg-muted text-foreground" : "text-muted-foreground")}>{spec.name}</span></Link>;
 }
 
 function LibraryNav({ specs, pathname, onNavigate }: { specs: ReturnType<typeof loadSpecs>; pathname: string; onNavigate?: () => void }) {

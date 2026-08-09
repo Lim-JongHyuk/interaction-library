@@ -1,26 +1,25 @@
 "use client";
 
-import { useState } from "react";
-import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Header } from "@/components/site/header";
 import { SidebarNav } from "@/components/site/sidebar-nav";
 import { siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/cn";
 import { PanelResizeHandle } from "@/components/site/panel-resize-handle";
+import { SearchDialog } from "@/components/site/search-modal";
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState(320);
-  const pathname = usePathname();
-  const [prevPathname, setPrevPathname] = useState(pathname);
-
-  if (pathname !== prevPathname) {
-    setPrevPathname(pathname);
-    setDrawerOpen(false);
-  }
+  useEffect(() => {
+    const closeDrawer = () => setDrawerOpen(false);
+    window.addEventListener("orbit:navigate", closeDrawer);
+    return () => window.removeEventListener("orbit:navigate", closeDrawer);
+  }, []);
 
   return (
     <div className="flex min-h-full flex-col bg-background">
+      <SearchDialog />
       <div className="lg:hidden">
         <Header onMenuClick={() => setDrawerOpen(true)} />
       </div>
@@ -61,7 +60,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
 
       <footer className="border-t border-border px-4 py-5 font-mono text-xs text-muted-foreground">
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-          <span className="font-medium text-foreground/80">Kinetiq</span>
+          <span className="font-medium text-foreground/80">ORBIT</span>
           <span>MIT License</span>
           <span className="hidden sm:inline">Built with Next.js · motion · Tailwind CSS</span>
           {siteConfig.github && (

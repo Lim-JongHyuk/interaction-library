@@ -46,7 +46,7 @@ export function ComponentCard({ spec, gallery = false }: { spec: MotionSpec; gal
             // Gallery cards only run while they are actually on screen. This
             // keeps the first viewport to the visible 6–8 previews and avoids
             // starting the next row's Canvas/WebGL loops ahead of time.
-            rootMargin={gallery ? "0px" : "200px"}
+            rootMargin={gallery ? "0px" : "80px"}
           >
             {Preview ? (
               <Preview {...spec.demo} {...defaultParamValues(spec)} />

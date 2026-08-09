@@ -11,7 +11,7 @@ export function LazyPreview({
   poster,
   children,
   className,
-  rootMargin = "200px",
+  rootMargin = "80px",
 }: {
   poster: React.ReactNode;
   children: React.ReactNode;
@@ -19,22 +19,32 @@ export function LazyPreview({
   rootMargin?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+  const [intersecting, setIntersecting] = useState(false);
+  const [pageVisible, setPageVisible] = useState(true);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     const io = new IntersectionObserver(
-      ([entry]) => setVisible(entry.isIntersecting),
+      ([entry]) => setIntersecting(entry.isIntersecting),
       { rootMargin }
     );
     io.observe(el);
     return () => io.disconnect();
   }, [rootMargin]);
 
+  useEffect(() => {
+    function updatePageVisibility() {
+      setPageVisible(document.visibilityState === "visible");
+    }
+    updatePageVisibility();
+    document.addEventListener("visibilitychange", updatePageVisibility);
+    return () => document.removeEventListener("visibilitychange", updatePageVisibility);
+  }, []);
+
   return (
     <div ref={ref} className={className}>
-      {visible ? children : poster}
+      {intersecting && pageVisible ? children : poster}
     </div>
   );
 }

@@ -18,7 +18,7 @@ export function Header({ onMenuClick }: { onMenuClick: () => void }) {
         <MenuIcon className="h-5 w-5" />
       </button>
 
-      <Link href="/" aria-label="Kinetiq home"><BrandMark label="Kinetiq" /></Link>
+      <Link href="/" aria-label="ORBIT home"><BrandMark label="ORBIT" /></Link>
 
       <div className="ml-4 flex-1 max-w-sm">
         <SearchTrigger />
