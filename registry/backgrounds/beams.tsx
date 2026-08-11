@@ -36,7 +36,7 @@ function createGeometry(count: number, width: number, height: number) {
       const y = height * (row / segments - .5);
       positions.set([x, y, 0, x + width, y, 0], vertex * 3);
       uvs.set([offsetX, row / segments, offsetX + 1, row / segments], vertex * 2);
-      if (row < segments) indices.set([vertex, vertex + 1, vertex + 2, vertex + 2, vertex + 1, vertex + 3], index), index += 6;
+      if (row < segments) { indices.set([vertex, vertex + 1, vertex + 2, vertex + 2, vertex + 1, vertex + 3], index); index += 6; }
       vertex += 2;
     }
   }
@@ -53,6 +53,8 @@ function BeamField({ beamWidth, beamHeight, beamNumber, lightColor, speed, noise
   const reducedMotion = useReducedMotion();
   const geometry = useMemo(() => createGeometry(Math.max(1, Math.round(beamNumber)), beamWidth, beamHeight), [beamNumber, beamWidth, beamHeight]);
   const material = useMemo(() => new THREE.ShaderMaterial({ transparent: true, depthWrite: false, side: THREE.DoubleSide, uniforms: { uTime:{value:0},uSpeed:{value:speed},uScale:{value:scale},uNoiseIntensity:{value:noiseIntensity},uColor:{value:new THREE.Color(lightColor)} }, vertexShader, fragmentShader }), [speed, noiseIntensity, scale, lightColor]);
+  // Shader uniforms are intentionally updated by the render loop, outside React state.
+  // eslint-disable-next-line react-hooks/immutability
   useFrame(({ clock }) => { material.uniforms.uTime.value = reducedMotion ? 0 : clock.elapsedTime; material.uniforms.uSpeed.value = speed; material.uniforms.uScale.value = scale; material.uniforms.uNoiseIntensity.value = noiseIntensity; material.uniforms.uColor.value.set(lightColor); });
   return <group rotation={[0, 0, THREE.MathUtils.degToRad(rotation)]}><mesh geometry={geometry} material={material} /></group>;
 }

@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable react-hooks/exhaustive-deps, react-hooks/refs -- The renderer owns a long-lived animation loop and reads its live prop ref. */
+
 import { useEffect, useRef } from "react";
 import { Mesh, Program, Renderer, Triangle } from "ogl";
 

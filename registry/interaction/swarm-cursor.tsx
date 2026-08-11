@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable react-hooks/exhaustive-deps -- The canvas mounts once and consumes current values from propsRef. */
+
 import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 import { Geometry, Mesh, Program, RenderTarget, Renderer, Triangle } from "ogl";
 
@@ -60,7 +62,7 @@ export interface SwarmCursorProps {
 export function SwarmCursor({ color = "#ffffff", accentColor = "#ffffff", count = 10, size = 10, merge = 0.77, glow = 0.75, opacity = 1, spread = 100, separation = 0.15, speed = 2.5, wander = 0.25, trail = 0.75, scatterOnClick = true, enabled = true, children, className = "", style }: SwarmCursorProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const propsRef = useRef({ color, accentColor, count, size, merge, glow, opacity, spread, separation, speed, wander, trail, scatterOnClick, enabled });
-  propsRef.current = { color, accentColor, count, size, merge, glow, opacity, spread, separation, wander, speed, trail, scatterOnClick, enabled };
+  useEffect(() => { propsRef.current = { color, accentColor, count, size, merge, glow, opacity, spread, separation, wander, speed, trail, scatterOnClick, enabled }; }, [color, accentColor, count, size, merge, glow, opacity, spread, separation, speed, wander, trail, scatterOnClick, enabled]);
 
   useEffect(() => {
     const container = containerRef.current;

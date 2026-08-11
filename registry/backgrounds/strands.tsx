@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable react-hooks/exhaustive-deps -- The WebGL lifecycle is stable while a separate effect mirrors live props. */
+
 // deps: ogl
 import { useEffect, useRef } from "react";
 import { Color, Mesh, Program, Renderer, RenderTarget, Triangle } from "ogl";
@@ -41,7 +43,7 @@ export interface StrandsProps {
 export function Strands({ colors=["#FF4242","#7C3AED","#06B6D4","#EAB308"], count=3, speed=.5, amplitude=1, waviness=1, thickness=.7, glow=2.6, taper=3, spread=1, hueShift=0, intensity=.6, saturation=1.5, opacity=1, scale=1.5, glass=false, refraction=1, dispersion=1, glassSize=1, className="" }: StrandsProps) {
   const hostRef = useRef<HTMLDivElement>(null);
   const props = useRef({ colors,count,speed,amplitude,waviness,thickness,glow,taper,spread,hueShift,intensity,saturation,opacity,scale,glass,refraction,dispersion,glassSize });
-  props.current = { colors,count,speed,amplitude,waviness,thickness,glow,taper,spread,hueShift,intensity,saturation,opacity,scale,glass,refraction,dispersion,glassSize };
+  useEffect(() => { props.current = { colors,count,speed,amplitude,waviness,thickness,glow,taper,spread,hueShift,intensity,saturation,opacity,scale,glass,refraction,dispersion,glassSize }; }, [colors,count,speed,amplitude,waviness,thickness,glow,taper,spread,hueShift,intensity,saturation,opacity,scale,glass,refraction,dispersion,glassSize]);
 
   useEffect(() => {
     const host = hostRef.current;

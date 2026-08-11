@@ -89,7 +89,7 @@ export function RippleDistortion({ src = "https://images.unsplash.com/photo-1519
       uHighlight: { value: [number, number, number] }; uTint: { value: [number, number, number] };
     };
   } | null>(null);
-  configRef.current = { brushSize, spread, fade, spacing, clickStrength, trigger, enabled };
+  useEffect(() => { configRef.current = { brushSize, spread, fade, spacing, clickStrength, trigger, enabled }; }, [brushSize, spread, fade, spacing, clickStrength, trigger, enabled]);
 
   useEffect(() => {
     const mount = mountRef.current;

@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable react-hooks/exhaustive-deps -- The renderer mounts once and reads live values from props.current. */
+
 // deps: ogl
 import { useEffect, useRef } from "react";
 import { Mesh, Program, Renderer, Triangle, Vec3 } from "ogl";
@@ -18,7 +20,7 @@ export interface OrbProps { hue?: number; hoverIntensity?: number; rotateOnHover
 export function Orb({ hue=0, hoverIntensity=.2, rotateOnHover=true, forceHoverState=false, backgroundColor="#000000", className="" }: OrbProps) {
   const hostRef = useRef<HTMLDivElement>(null);
   const props = useRef({ hue,hoverIntensity,rotateOnHover,forceHoverState,backgroundColor });
-  props.current = { hue,hoverIntensity,rotateOnHover,forceHoverState,backgroundColor };
+  useEffect(() => { props.current = { hue,hoverIntensity,rotateOnHover,forceHoverState,backgroundColor }; }, [hue, hoverIntensity, rotateOnHover, forceHoverState, backgroundColor]);
   useEffect(() => {
     const host=hostRef.current;if(!host)return;
     const renderer=new Renderer({alpha:true,premultipliedAlpha:false,dpr:Math.min(window.devicePixelRatio||1,2)}),gl=renderer.gl;
