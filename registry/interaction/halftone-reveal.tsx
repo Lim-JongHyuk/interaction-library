@@ -16,7 +16,7 @@ uniform float uDotSize,uDensity,uAngle,uContrast,uInvert,uRevealRadius,uEdge,uId
 mat2 rot(float a){float c=cos(a),s=sin(a);return mat2(c,-s,s,c);}
 vec2 cover(vec2 uv){float ia=uImageSize.x/max(uImageSize.y,1.),pa=iResolution.x/max(iResolution.y,1.);vec2 s=pa>ia?vec2(1.,ia/pa):vec2(pa/ia,1.);return(uv-.5)*s+.5;}
 float distShape(vec2 p){if(uShape==1)return max(abs(p.x),abs(p.y));if(uShape==2)return abs(p.x)+abs(p.y);if(uShape==3)return abs(p.y);return length(p);}
-float dots(vec2 st,float density,float angle,float tone){vec2 grid=rot(angle)*st*density;vec2 cell=floor(grid)+.5;vec2 sampleUv=rot(-angle)*(cell/density);vec3 c=texture2D(tMap,clamp(cover(sampleUv),0.,1.)).rgb;c=clamp((c-.5)*uContrast+.5,0.,1.);c=mix(c,1.-c,uInvert);float ink=1.-dot(c,vec3(.299,.587,.114));float radius=sqrt(clamp(ink*tone,0.,1.))*.72*uDotSize;float d=distShape(fract(grid)-.5);float aa=fwidth(grid.x)*.65+.001;return smoothstep(radius+aa,radius-aa,d);}
+float dots(vec2 st,float density,float angle,float tone){vec2 grid=rot(angle)*st*density;vec2 cell=floor(grid)+.5;vec2 sampleUv=rot(-angle)*(cell/density);vec3 c=texture2D(tMap,clamp(cover(sampleUv),0.,1.)).rgb;c=clamp((c-.5)*uContrast+.5,0.,1.);c=mix(c,1.-c,uInvert);float ink=1.-dot(c,vec3(.299,.587,.114));float radius=sqrt(clamp(ink*tone,0.,1.))*.72*uDotSize;float d=distShape(fract(grid)-.5);float aa=.008;return smoothstep(radius+aa,radius-aa,d);}
 void main(){
   vec2 aspect=vec2(iResolution.x/max(iResolution.y,1.),1.);vec2 st=vUv*aspect;float a=radians(uAngle);float density=uDensity;
   float mono=dots(st,density,a,1.);vec3 printed=mix(uPaper,uInk,mono);

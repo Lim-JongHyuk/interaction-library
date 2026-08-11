@@ -47,7 +47,7 @@ export interface MotionSpec {
 
   params: ParamDef[];
 
-  dependencies: ("motion" | "three" | "ogl" | "@react-three/fiber")[];
+  dependencies: ("motion" | "three" | "ogl" | "@react-three/fiber" | "@react-three/drei" | "@react-three/rapier" | "meshline")[];
   variants: ["react-ts-tw"]; // P1 고정. 배열인 이유: 추후 확장
 
   a11y: {
@@ -131,7 +131,7 @@ export const motionSpecSchema = z
     trigger: z.enum(["mount", "in-view", "hover", "click", "scroll", "drag", "loop"]),
     triggerNote: z.string().optional(),
     params: z.array(paramDefSchema),
-    dependencies: z.array(z.enum(["motion", "three", "ogl", "@react-three/fiber"])),
+    dependencies: z.array(z.enum(["motion", "three", "ogl", "@react-three/fiber", "@react-three/drei", "@react-three/rapier", "meshline"])),
     variants: z.tuple([z.literal("react-ts-tw")]),
     a11y: z.object({
       reducedMotion: z.string().min(8),

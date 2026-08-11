@@ -9,13 +9,14 @@ interface ParamControlsProps {
   values: ParamValues;
   onChange: (key: string, value: string | number | boolean) => void;
   dense?: boolean;
+  grid?: boolean;
 }
 
-export function ParamControls({ params, values, onChange, dense = false }: ParamControlsProps) {
+export function ParamControls({ params, values, onChange, dense = false, grid = false }: ParamControlsProps) {
   return (
-    <div className="flex flex-col gap-4">
+    <div className={cn("flex flex-col gap-4", grid && "md:grid md:grid-cols-2 md:gap-3 xl:grid-cols-3")}>
       {params.map((param) => (
-        <ParamControl key={param.key} param={param} value={values[param.key]} onChange={onChange} dense={dense} />
+        <ParamControl key={param.key} param={param} value={values[param.key]} onChange={onChange} dense={dense} grid={grid} />
       ))}
     </div>
   );
@@ -26,16 +27,18 @@ function ParamControl({
   value,
   onChange,
   dense,
+  grid,
 }: {
   param: ParamDef;
   value: string | number | boolean;
   onChange: (key: string, value: string | number | boolean) => void;
   dense: boolean;
+  grid: boolean;
 }) {
   const inputId = `param-${param.key}`;
 
   return (
-    <div className={cn("flex flex-col", dense ? "gap-2 border-b border-border pb-4 last:border-0" : "gap-1.5")}>
+    <div className={cn("flex flex-col", grid ? "gap-2 rounded-xl border border-border bg-muted/40 px-3 py-3" : dense ? "gap-2 border-b border-border pb-4 last:border-0" : "gap-1.5")}>
       <div className="flex items-center justify-between text-xs">
         <label htmlFor={inputId} className="font-medium text-foreground">
           {param.label}

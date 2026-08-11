@@ -33,7 +33,7 @@ export default async function CategoryIndexPage({
   const specs = getSpecsByCategory(category);
 
   return (
-    <div className="mk-home flex flex-col gap-6 px-4 py-7 md:px-6 md:py-8">
+    <div className="mk-home mx-auto flex w-full max-w-[1280px] flex-col gap-6 px-5 py-8 sm:px-8 sm:py-10 lg:px-6 lg:py-12">
       <div className="border-b border-border pb-4">
         <p className="mb-2 font-mono text-xs uppercase tracking-[0.18em] text-accent">Component category</p>
         <h1 className="text-2xl font-semibold tracking-tight">{meta.label}</h1>

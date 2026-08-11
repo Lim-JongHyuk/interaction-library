@@ -3,6 +3,7 @@ import { FadeUpText } from "@/registry/typography/fade-up";
 import { BlurInText } from "@/registry/typography/blur-in";
 import { TypewriterText } from "@/registry/typography/typewriter";
 import { AnimatedGradient } from "@/registry/typography/gradient-flow";
+import { ShinyText } from "@/registry/typography/shiny-text";
 import { JitterText } from "@/registry/typography/jitter";
 import { SplitReveal } from "@/registry/typography/split-reveal";
 import { ShuffleText } from "@/registry/typography/shuffle";
@@ -75,6 +76,7 @@ import { InfiniteCanvas } from "@/registry/interaction/infinite-canvas";
 import { DeviceScroll } from "@/registry/sections/device-scroll";
 import { HorizontalScrollGallery } from "@/registry/sections/horizontal-scroll";
 import { ParallaxTiltCard } from "@/registry/interaction/tilt-card";
+import { Lanyard } from "@/registry/interaction/lanyard";
 import { CommandPalette } from "@/registry/navigation/command-menu";
 import { ParticleText } from "@/registry/typography/particle-text";
 import { SpotlightCardGrid } from "@/registry/layout/spotlight-grid";
@@ -93,6 +95,9 @@ import { Antigravity } from "@/registry/interaction/antigravity";
 import { FluidGlass } from "@/registry/interaction/fluid-glass";
 import { MoltenMetal } from "@/registry/backgrounds/molten-metal";
 import { WebThreads } from "@/registry/backgrounds/web-threads";
+import { Strands } from "@/registry/backgrounds/strands";
+import { Beams } from "@/registry/backgrounds/beams";
+import { Orb } from "@/registry/backgrounds/orb";
 import { PixelBlast } from "@/registry/backgrounds/pixel-blast";
 
 /**
@@ -105,6 +110,7 @@ export const registryComponents: Record<string, ComponentType<any>> = {
   "typography/blur-in": BlurInText,
   "typography/typewriter": TypewriterText,
   "typography/gradient-flow": AnimatedGradient,
+  "typography/shiny-text": ShinyText,
   "typography/jitter": JitterText,
   "typography/split-reveal": SplitReveal,
   "typography/shuffle": ShuffleText,
@@ -172,6 +178,7 @@ export const registryComponents: Record<string, ComponentType<any>> = {
   "sections/device-scroll": DeviceScroll,
   "sections/horizontal-scroll": HorizontalScrollGallery,
   "interaction/tilt-card": ParallaxTiltCard,
+  "interaction/lanyard": Lanyard,
   "navigation/command-menu": CommandPalette,
   "typography/particle-text": ParticleText,
   "layout/spotlight-grid": SpotlightCardGrid,
@@ -190,6 +197,9 @@ export const registryComponents: Record<string, ComponentType<any>> = {
   "interaction/fluid-glass": FluidGlass,
   "backgrounds/molten-metal": MoltenMetal,
   "backgrounds/web-threads": WebThreads,
+  "backgrounds/strands": Strands,
+  "backgrounds/beams": Beams,
+  "backgrounds/orb": Orb,
   "backgrounds/pixel-blast": PixelBlast,
   "data/world-map-connections": WorldMapConnections,
   "interaction/cube-gallery": CubeGallery,
