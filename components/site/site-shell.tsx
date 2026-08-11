@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Header } from "@/components/site/header";
 import { SidebarNav } from "@/components/site/sidebar-nav";
 import { siteConfig } from "@/lib/site-config";
@@ -9,8 +10,10 @@ import { PanelResizeHandle } from "@/components/site/panel-resize-handle";
 import { SearchDialog } from "@/components/site/search-modal";
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const isIndex = pathname === "/";
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [sidebarWidth, setSidebarWidth] = useState(320);
+  const [sidebarWidth, setSidebarWidth] = useState(240);
   useEffect(() => {
     const closeDrawer = () => setDrawerOpen(false);
     window.addEventListener("orbit:navigate", closeDrawer);
@@ -20,19 +23,19 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-full flex-col bg-background">
       <SearchDialog />
-      <div className="lg:hidden">
-        <Header onMenuClick={() => setDrawerOpen(true)} />
-      </div>
+      <Header onMenuClick={() => setDrawerOpen(true)} showMenu={!isIndex} />
 
-      <div className="flex flex-1">
-        <aside style={{ width: sidebarWidth }} className="relative hidden shrink-0 border-r border-border bg-[#1d1d1f] lg:block">
-          <div className="sticky top-0 h-screen overflow-y-auto">
+      <div className="mx-auto flex w-[calc(100%-2.5rem)] max-w-[1340px] flex-1 sm:w-[calc(100%-4rem)]">
+        {!isIndex && <aside style={{ width: sidebarWidth }} className="relative hidden shrink-0 border-r border-border bg-background lg:block">
+          <div className="sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto">
             <SidebarNav />
           </div>
           <PanelResizeHandle label="Resize library sidebar" className="-right-1 top-0 h-full" onResize={(delta) => setSidebarWidth((width) => Math.min(460, Math.max(220, width + delta)))} />
-        </aside>
+        </aside>}
 
-        <div
+        <main className="min-w-0 flex-1">{children}</main>
+
+        {!isIndex && <div
           className={cn(
             "fixed inset-0 z-50 lg:hidden",
             drawerOpen ? "pointer-events-auto" : "pointer-events-none"
@@ -53,9 +56,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
           >
             <SidebarNav onNavigate={() => setDrawerOpen(false)} />
           </div>
-        </div>
-
-        <main className="min-w-0 flex-1">{children}</main>
+        </div>}
       </div>
 
       <footer className="border-t border-border px-4 py-5 font-mono text-xs text-muted-foreground">

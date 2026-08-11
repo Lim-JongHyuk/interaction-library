@@ -1,26 +1,39 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ThemeToggle } from "@/components/site/theme-toggle";
 import { SearchTrigger } from "@/components/site/search-modal";
 import { siteConfig } from "@/lib/site-config";
 import { BrandMark } from "@/components/site/brand-mark";
+import { cn } from "@/lib/cn";
 
-export function Header({ onMenuClick }: { onMenuClick: () => void }) {
+export function Header({ onMenuClick, showMenu = true }: { onMenuClick: () => void; showMenu?: boolean }) {
+  const pathname = usePathname();
+  const navItems = [
+    { href: "/components", label: "Components", active: pathname === "/components" || pathname.startsWith("/docs") },
+    { href: "/collections", label: "Collections", active: pathname === "/collections" },
+    { href: "/changelog", label: "Changelog", active: pathname === "/changelog" },
+  ];
   return (
-    <header className="sticky top-0 z-40 flex h-14 items-center gap-3 border-b border-border bg-background/80 px-4 backdrop-blur">
-      <button
+    <header className="sticky top-0 z-40 h-14 border-b border-border bg-background/90 px-4 backdrop-blur-xl lg:px-5">
+      <div className={cn("mx-auto flex h-full w-[calc(100%-2.5rem)] items-center gap-3 sm:w-[calc(100%-4rem)]", pathname === "/" ? "max-w-[1280px]" : "max-w-[1340px]")}>
+      {showMenu && <button
         type="button"
         aria-label="Open menu"
         onClick={onMenuClick}
         className="inline-flex h-8 w-8 items-center justify-center rounded-md text-foreground/80 hover:bg-muted lg:hidden"
       >
         <MenuIcon className="h-5 w-5" />
-      </button>
+      </button>}
 
       <Link href="/" aria-label="ORBIT home"><BrandMark label="ORBIT" /></Link>
 
-      <div className="ml-4 flex-1 max-w-sm">
+      <nav aria-label="Primary navigation" className="hidden items-center gap-1 lg:flex">
+        {navItems.map((item) => <Link key={item.href} href={item.href} aria-current={item.active ? "page" : undefined} className={`rounded-md px-2.5 py-1.5 text-xs transition-colors ${item.active ? "bg-muted text-foreground" : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"}`}>{item.label}</Link>)}
+      </nav>
+
+      <div className="ml-4 flex-1 max-w-sm lg:ml-auto lg:max-w-[280px]">
         <SearchTrigger />
       </div>
 
@@ -37,6 +50,7 @@ export function Header({ onMenuClick }: { onMenuClick: () => void }) {
           </a>
         )}
         <ThemeToggle />
+      </div>
       </div>
     </header>
   );

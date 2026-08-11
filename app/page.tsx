@@ -12,7 +12,7 @@ export default function Home() {
     .filter((spec): spec is NonNullable<typeof spec> => Boolean(spec));
 
   return (
-    <main className="orbit-home min-h-full px-4 py-4 md:px-6 md:py-6 lg:px-8">
+    <main className="orbit-home mx-auto min-h-full w-full max-w-[1280px] px-5 py-8 sm:px-8 sm:py-10 lg:px-10 lg:py-12">
       <section className="orbit-hero relative overflow-hidden border border-border px-5 py-7 sm:px-8 sm:py-10 lg:min-h-[440px] lg:px-12 lg:py-12">
         <div className="orbit-hero-grid" aria-hidden="true" />
         <div className="orbit-signal orbit-signal-a" aria-hidden="true" />

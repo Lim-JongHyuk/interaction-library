@@ -3,6 +3,7 @@ import fadeUp from "./text-fade-up";
 import blurIn from "./text-blur-in";
 import typewriter from "./text-typewriter";
 import gradientFlow from "./text-gradient-flow";
+import shinyText from "./text-shiny-text";
 import jitter from "./text-jitter";
 import splitReveal from "./text-split-reveal";
 import shuffle from "./text-shuffle";
@@ -75,6 +76,7 @@ import infiniteCanvas from "./interaction-infinite-canvas";
 import deviceScroll from "./sections-device-scroll";
 import horizontalScroll from "./sections-horizontal-scroll";
 import tiltCard from "./interaction-tilt-card";
+import lanyard from "./interaction-lanyard";
 import commandMenu from "./navigation-command-menu";
 import particleText from "./typography-particle-text";
 import spotlightGrid from "./layout-spotlight-grid";
@@ -93,6 +95,9 @@ import antigravity from "./interaction-antigravity";
 import fluidGlass from "./interaction-fluid-glass";
 import moltenMetal from "./backgrounds-molten-metal";
 import webThreads from "./backgrounds-web-threads";
+import strands from "./backgrounds-strands";
+import beams from "./backgrounds-beams";
+import orb from "./backgrounds-orb";
 import pixelBlast from "./backgrounds-pixel-blast";
 
 /**
@@ -104,6 +109,7 @@ export const allSpecs: MotionSpec[] = [
   blurIn,
   typewriter,
   gradientFlow,
+  shinyText,
   jitter,
   splitReveal,
   shuffle,
@@ -174,6 +180,7 @@ export const allSpecs: MotionSpec[] = [
   deviceScroll,
   horizontalScroll,
   tiltCard,
+  lanyard,
   commandMenu,
   particleText,
   spotlightGrid,
@@ -192,6 +199,9 @@ export const allSpecs: MotionSpec[] = [
   fluidGlass,
   moltenMetal,
   webThreads,
+  strands,
+  beams,
+  orb,
   pixelBlast,
   worldMapConnections,
   cubeGallery,

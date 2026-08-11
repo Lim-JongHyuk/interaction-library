@@ -80,7 +80,7 @@ export function CatalogView({ specs }: { specs: MotionSpec[] }) {
   }, [specs, fuse, query, category, tag]);
 
   return (
-    <div className="mk-home flex flex-col gap-6 px-4 py-7 md:px-6 md:py-8">
+    <div className="mk-home mx-auto flex w-full max-w-[1280px] flex-col gap-6 px-5 py-8 sm:px-8 sm:py-10 lg:px-6 lg:py-12">
       <div className="flex flex-col gap-4 border-b border-border pb-5">
         <div><p className="mb-2 font-mono text-xs uppercase tracking-[0.18em] text-accent">Library / {view}</p><h1 className="text-2xl font-semibold tracking-tight">{view === "all" ? "All Components" : `${view[0].toUpperCase()}${view.slice(1)} Components`}</h1></div>
         <div className="flex flex-wrap items-center gap-2">
@@ -145,7 +145,7 @@ export function CatalogView({ specs }: { specs: MotionSpec[] }) {
       {filtered.length === 0 ? (
         <p className="text-sm text-muted-foreground">조건에 맞는 컴포넌트가 없습니다.</p>
       ) : (
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {filtered.map((spec) => (
             <ComponentCard key={`${spec.category}/${spec.slug}`} spec={spec} gallery />
           ))}
