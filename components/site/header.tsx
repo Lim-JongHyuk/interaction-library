@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ThemeToggle } from "@/components/site/theme-toggle";
 import { SearchTrigger } from "@/components/site/search-modal";
 import { siteConfig } from "@/lib/site-config";
 import { BrandMark } from "@/components/site/brand-mark";
@@ -33,10 +32,6 @@ export function Header({ onMenuClick, showMenu = true }: { onMenuClick: () => vo
         {navItems.map((item) => <Link key={item.href} href={item.href} aria-current={item.active ? "page" : undefined} className={`rounded-md px-2.5 py-1.5 text-xs transition-colors ${item.active ? "bg-muted text-foreground" : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"}`}>{item.label}</Link>)}
       </nav>
 
-      <div className="ml-4 flex-1 max-w-sm lg:ml-auto lg:max-w-[280px]">
-        <SearchTrigger />
-      </div>
-
       <div className="ml-auto flex items-center gap-2">
         {siteConfig.github && (
           <a
@@ -49,7 +44,9 @@ export function Header({ onMenuClick, showMenu = true }: { onMenuClick: () => vo
             <GitHubIcon className="h-4 w-4" />
           </a>
         )}
-        <ThemeToggle />
+      </div>
+      <div className="w-full max-w-sm shrink-0 sm:w-72 lg:w-[280px]">
+        <SearchTrigger />
       </div>
       </div>
     </header>
